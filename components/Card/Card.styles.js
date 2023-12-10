@@ -1,17 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {Colors} from '../../styles/Colors';
 
 export const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: 'row',
     borderRadius: 20,
     padding: 20,
     paddingBottom: 0,
+    width: Dimensions.get('screen').width - 40,
   },
-  inner: {
-    borderWidth: 1,
-  },
-  cardContent: {paddingRight: 40},
   bankName: {
     fontSize: 20,
     fontWeight: '400',

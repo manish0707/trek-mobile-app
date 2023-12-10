@@ -35,21 +35,21 @@ export default function Card({style, cardDetails = defaultValues}) {
   return (
     <View style={[styles.wrapper, {backgroundColor: color}, style]}>
       <View>
-        <View style={styles.cardContent}>
-          <Text style={styles.bankName}>{bankName}</Text>
-          <Image style={styles.chip} source={images.chip} />
-          <CardDots lastDigits={cardLastDigits} />
-          <View style={styles.nameWrap}>
-            <Text style={styles.cardName}>{cardHolderName}</Text>
-            <Image style={styles.cardTypeLogo} source={image} />
-          </View>
+        <Text numberOfLines={1} style={styles.bankName}>
+          {bankName}
+        </Text>
+        <Image style={styles.chip} source={images.chip} />
+        <CardDots lastDigits={cardLastDigits} />
+        <View style={styles.nameWrap}>
+          <Text style={styles.cardName}>{cardHolderName}</Text>
+          <Image style={styles.cardTypeLogo} source={image} />
         </View>
+      </View>
 
-        <View style={styles.tagWrap}>
-          <View style={styles.creditTag}>
-            <Text style={styles.creditDays}>{creditTime} </Text>
-            <Text style={styles.creditDaysText}>days credit period</Text>
-          </View>
+      <View style={styles.tagWrap}>
+        <View style={styles.creditTag}>
+          <Text style={styles.creditDays}>{creditTime} </Text>
+          <Text style={styles.creditDaysText}>days credit period</Text>
         </View>
       </View>
     </View>

@@ -160,7 +160,7 @@ export default function AddAndEditCard({navigation}) {
             onSelect={handleSelectDate}
             modalHeading="Search Date"
             placeholder="Date"
-            selectedValue={billPaymentDate?.date?.name}
+            selectedValue={billPaymentDate?.date}
             style={styles.paymentDate}
             enableSearch={false}
           />
@@ -169,7 +169,7 @@ export default function AddAndEditCard({navigation}) {
             onSelect={handleSelectMonth}
             modalHeading="Search Month"
             placeholder="Month"
-            selectedValue={billPaymentDate?.month?.name}
+            selectedValue={billPaymentDate?.month}
             enableSearch={false}
           />
         </View>
