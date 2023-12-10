@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import Header from '../../components/Header/Header';
 import {styles} from './AddAndEditCard.styles';
 import SelectModal from '../../components/SelectModal/SelectModal';
 import {bankNames} from '../../utils/bankNames';
 import {images} from '../../images';
 import {commonStyles} from '../../styles/commonstyles';
+import {Strings} from '../../utils/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const cardTypes = ['visa', 'mastercard', 'rupay'];
 
@@ -42,7 +43,7 @@ export default function AddAndEditCard({navigation}) {
     }
   };
 
-  const handleSaveCard = () => {
+  const handleSaveCard = async () => {
     if (!selectedBank) {
       return setErrorFields({bankName: true});
     }
@@ -53,6 +54,29 @@ export default function AddAndEditCard({navigation}) {
 
     if (!billPaymentDate?.date || !billPaymentDate?.month) {
       return setErrorFields({billPaymentDate: true});
+    }
+
+    const card = {
+      bankName: selectedBank.name,
+      cardType,
+      billPaymentDate,
+    };
+
+    try {
+      const cardsList = await AsyncStorage.getItem(Strings.cardsListKey);
+      let cards = [];
+
+      if (cardsList === null) {
+        cards.push(card);
+      } else {
+        const updatedCards = JSON.parse(cardsList);
+        updatedCards.push(card);
+        cards = updatedCards;
+      }
+      await AsyncStorage.setItem(Strings.cardsListKey, JSON.stringify(cards));
+      navigation.navigate('Home');
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -65,15 +89,15 @@ export default function AddAndEditCard({navigation}) {
     }
   };
 
-  const handleSelectDate = value => {
-    setBillPaymentDate({...billPaymentDate, date: value});
+  const handleSelectDate = date => {
+    setBillPaymentDate({...billPaymentDate, date: date.name});
     if (errorFields.billPaymentDate) {
       setErrorFields({...errorFields, billPaymentDate: false});
     }
   };
 
-  const handleSelectMonth = value => {
-    setBillPaymentDate({...billPaymentDate, month: value});
+  const handleSelectMonth = month => {
+    setBillPaymentDate({...billPaymentDate, month: month.name});
     if (errorFields.billPaymentDate) {
       setErrorFields({...errorFields, billPaymentDate: false});
     }
@@ -83,7 +107,6 @@ export default function AddAndEditCard({navigation}) {
 
   return (
     <View style={styles.wrapper}>
-      {/* <Header /> */}
       <View style={styles.content}>
         <Text style={styles.heading}>Add Your Card Here</Text>
 
