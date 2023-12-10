@@ -43,7 +43,9 @@ export default function Home({navigation}) {
         />
       </View>
 
-      <TouchableOpacity style={styles.floatingAddCard}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('AddAndEditCard')}
+        style={styles.floatingAddCard}>
         <Image style={styles.plus} source={images.plus} />
       </TouchableOpacity>
     </View>

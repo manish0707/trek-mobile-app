@@ -6,4 +6,5 @@ export const images = {
   rupay: require('../images/rupay.png'),
   visa: require('../images/visa.png'),
   plus: require('../images/plus-white.png'),
+  downArrow: require('../images/down-arrow.png'),
 };
