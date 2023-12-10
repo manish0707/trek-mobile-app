@@ -15,25 +15,11 @@ const dates = Array.from({length: 31}, (_, index) => ({
   code: index + 1,
 }));
 
-const months = [
-  {code: 'January', name: 'January'},
-  {code: 'February', name: 'February'},
-  {code: 'March', name: 'March'},
-  {code: 'April', name: 'April'},
-  {code: 'May', name: 'May'},
-  {code: 'June', name: 'June'},
-  {code: 'July', name: 'July'},
-  {code: 'August', name: 'August'},
-  {code: 'September', name: 'September'},
-  {code: 'October', name: 'October'},
-  {code: 'November', name: 'November'},
-  {code: 'December', name: 'December'},
-];
-
 export default function AddAndEditCard({navigation}) {
   const [selectedBank, setSelectedBank] = useState(null);
   const [cardType, setCardType] = useState(null);
   const [billPaymentDate, setBillPaymentDate] = useState({});
+  const [billGenerationDate, setBillGenerationDate] = useState({});
   const [errorFields, setErrorFields] = useState({});
 
   const handleCardType = type => {
@@ -52,7 +38,11 @@ export default function AddAndEditCard({navigation}) {
       return setErrorFields({cardType: true});
     }
 
-    if (!billPaymentDate?.date || !billPaymentDate?.month) {
+    if (!billGenerationDate?.date?.name) {
+      return setErrorFields({billGenerationDate: true});
+    }
+
+    if (!billPaymentDate?.date?.name) {
       return setErrorFields({billPaymentDate: true});
     }
 
@@ -60,6 +50,7 @@ export default function AddAndEditCard({navigation}) {
       bankName: selectedBank.name,
       cardType,
       billPaymentDate,
+      billGenerationDate,
     };
 
     try {
@@ -89,21 +80,19 @@ export default function AddAndEditCard({navigation}) {
     }
   };
 
-  const handleSelectDate = date => {
-    setBillPaymentDate({...billPaymentDate, date: date.name});
+  const handleSelectBillPayDate = date => {
+    setBillPaymentDate({date: date});
     if (errorFields.billPaymentDate) {
       setErrorFields({...errorFields, billPaymentDate: false});
     }
   };
 
-  const handleSelectMonth = month => {
-    setBillPaymentDate({...billPaymentDate, month: month.name});
-    if (errorFields.billPaymentDate) {
-      setErrorFields({...errorFields, billPaymentDate: false});
+  const handleSelectBillGenDate = date => {
+    setBillGenerationDate({date: date});
+    if (errorFields.billGenerationDate) {
+      setErrorFields({...errorFields, billGenerationDate: false});
     }
   };
-
-  console.log(errorFields);
 
   return (
     <View style={styles.wrapper}>
@@ -152,24 +141,34 @@ export default function AddAndEditCard({navigation}) {
         ) : null}
 
         <Text style={[styles.fieldHeading, styles.fieldSeperator]}>
-          Bill Payment Date
+          Bill Generation Date
         </Text>
-        <View style={styles.paymentWrap}>
+        <View>
           <SelectModal
             list={dates}
-            onSelect={handleSelectDate}
+            onSelect={handleSelectBillGenDate}
             modalHeading="Search Date"
             placeholder="Date"
-            selectedValue={billPaymentDate?.date}
+            selectedValue={billGenerationDate?.date?.name}
             style={styles.paymentDate}
             enableSearch={false}
           />
+        </View>
+        {errorFields.billGenerationDate ? (
+          <Text style={styles.errorText}>This is required</Text>
+        ) : null}
+
+        <Text style={[styles.fieldHeading, styles.fieldSeperator]}>
+          Bill Payment Date
+        </Text>
+        <View>
           <SelectModal
-            list={months}
-            onSelect={handleSelectMonth}
-            modalHeading="Search Month"
-            placeholder="Month"
-            selectedValue={billPaymentDate?.month}
+            list={dates}
+            onSelect={handleSelectBillPayDate}
+            modalHeading="Search Date"
+            placeholder="Date"
+            selectedValue={billPaymentDate?.date?.name}
+            style={styles.paymentDate}
             enableSearch={false}
           />
         </View>

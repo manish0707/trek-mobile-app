@@ -6,6 +6,7 @@ import {commonStyles} from '../../styles/commonstyles';
 import Card from '../../components/Card/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Strings} from '../../utils/constants';
+import {getMaxCreditDays} from '../../utils/creditPeriod';
 
 const EmptyCard = ({navigation}) => {
   return (
@@ -57,18 +58,24 @@ export default function Home({navigation}) {
         <FlatList
           contentContainerStyle={styles.listWrap}
           data={cardsList}
-          renderItem={({item}) => (
-            <Card
-              cardDetails={{
-                bankName: item.bankName,
-                cardHolderName: 'Manish Sharma',
-                cardLastDigits: '2345',
-                cardType: item.cardType,
-                creditTime: 80,
-              }}
-              style={styles.cardSeperator}
-            />
-          )}
+          renderItem={({item}) => {
+            const days = getMaxCreditDays(
+              item.billGenerationDate.date.code,
+              item.billPaymentDate.date.code,
+            );
+            return (
+              <Card
+                cardDetails={{
+                  bankName: item.bankName,
+                  cardHolderName: 'Manish Sharma',
+                  cardLastDigits: '2345',
+                  cardType: item.cardType,
+                  creditTime: days,
+                }}
+                style={styles.cardSeperator}
+              />
+            );
+          }}
           ListEmptyComponent={ListEmptyComponent}
         />
       </View>

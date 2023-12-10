@@ -38,7 +38,6 @@ export const styles = StyleSheet.create({
     width: 100,
   },
   selectedCardType: {borderColor: 'green', borderWidth: 2},
-  paymentWrap: {flexDirection: 'row'},
   paymentDate: {marginRight: 10},
   saveBtn: {margin: 20},
   errorText: {color: 'red', fontSize: 16}

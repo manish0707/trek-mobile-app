@@ -13,12 +13,13 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 10,
     padding: 10,
-    borderColor: Colors.lightGray
+    borderColor: Colors.lightGray,
   },
   fieldText: {
     fontSize: 16,
     marginRight: 10,
     maxWidth: '90%',
+    color: 'black',
   },
   heading: {
     fontSize: 20,
