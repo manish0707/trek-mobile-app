@@ -34,7 +34,6 @@ export default function Home({navigation}) {
   return (
     <View style={styles.wrap}>
       <View style={styles.screen}>
-        <Header />
         <FlatList
           contentContainerStyle={styles.listWrap}
           data={[{}, {}, {}]}

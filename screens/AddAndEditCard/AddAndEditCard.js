@@ -54,8 +54,6 @@ export default function AddAndEditCard({navigation}) {
     if (!billPaymentDate?.date || !billPaymentDate?.month) {
       return setErrorFields({billPaymentDate: true});
     }
-
-    
   };
 
   console.log({errorFields});
@@ -85,7 +83,7 @@ export default function AddAndEditCard({navigation}) {
 
   return (
     <View style={styles.wrapper}>
-      <Header />
+      {/* <Header /> */}
       <View style={styles.content}>
         <Text style={styles.heading}>Add Your Card Here</Text>
 

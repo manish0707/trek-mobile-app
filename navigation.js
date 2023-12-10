@@ -4,8 +4,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './screens/Home/Home';
 import IntroScreen from './screens/Intro/IntroScreen';
 import AddAndEditCard from './screens/AddAndEditCard/AddAndEditCard';
+import {Colors} from './styles/Colors';
+import {Strings} from './utils/constants';
 
 const Stack = createNativeStackNavigator();
+
+const headerStyles = {
+  title: Strings.appName,
+  headerStyle: {backgroundColor: Colors.brand},
+  headerTitleStyle: {fontSize: 24},
+  headerTintColor: 'white',
+};
 
 export default function Naviation() {
   return (
@@ -17,12 +26,15 @@ export default function Naviation() {
           component={IntroScreen}
         />
         <Stack.Screen
-          options={{header: () => null}}
+          options={{
+            ...headerStyles,
+            headerBackVisible: false,
+          }}
           name="Home"
           component={Home}
         />
         <Stack.Screen
-          options={{header: () => null}}
+          options={headerStyles}
           name="AddAndEditCard"
           component={AddAndEditCard}
         />
