@@ -50,4 +50,19 @@ export const styles = StyleSheet.create({
   },
   creditDays: {fontSize: 28, fontWeight: 'bold', color: 'white'},
   creditDaysText: {fontSize: 18, color: 'white'},
+  actionWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionButton: {
+    width: 120,
+    padding: 10,
+    borderRadius: 10,
+    marginLeft: 10,
+    marginTop: 20,
+  },
+  actionButtonText: {
+    textAlign: 'center',
+    color: 'white',
+  },
 });

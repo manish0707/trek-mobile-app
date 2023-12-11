@@ -1,5 +1,5 @@
-import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React, {useRef} from 'react';
+import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
 import {images} from '../../images';
 import {styles} from './Card.styles';
 import CardDots from './CardDots';
@@ -29,23 +29,36 @@ const getImageBasedonCardType = cardType => {
 };
 
 export default function Card({style, cardDetails = defaultValues}) {
+  const swipeableRef = useRef(null);
+
   const {bankName, cardHolderName, cardLastDigits, cardType, creditTime} =
     cardDetails;
 
+  const showAlert = () =>
+    Alert.alert('Delete Card', 'Are you sure you want to delete this card?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('CANCEL'),
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: () => console.log('CANCEL'),
+        style: 'yes',
+      },
+    ]);
+
   const renderActions = () => {
     return (
-      <View style={{justifyContent: 'center'}}>
+      <View style={styles.actionWrapper}>
         <TouchableOpacity
-          style={{
-            height: 40,
-            padding: 10,
-            paddingHorizontal: 40,
-            borderWidth: 1,
-            borderRadius: 10,
-            marginLeft: 10,
-            backgroundColor: 'black',
-          }}>
-          <Text style={{color: 'white'}}>Edit</Text>
+          style={[styles.actionButton, {backgroundColor: '#10ac84'}]}>
+          <Text style={styles.actionButtonText}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={showAlert}
+          style={[styles.actionButton, {backgroundColor: '#eb4d4b'}]}>
+          <Text style={[styles.actionButtonText]}>Delete</Text>
         </TouchableOpacity>
       </View>
     );
@@ -55,7 +68,7 @@ export default function Card({style, cardDetails = defaultValues}) {
 
   return (
     <GestureHandlerRootView>
-      <Swipeable renderRightActions={renderActions}>
+      <Swipeable ref={swipeableRef} renderRightActions={renderActions}>
         <View style={[styles.wrapper, {backgroundColor: color}, style]}>
           <View>
             <Text numberOfLines={1} style={styles.bankName}>
