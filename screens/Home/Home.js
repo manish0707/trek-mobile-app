@@ -65,18 +65,14 @@ export default function Home({navigation}) {
             );
             return (
               <Card
-                cardDetails={{
-                  bankName: item.bankName,
-                  cardHolderName: 'Manish Sharma',
-                  cardLastDigits: '2345',
-                  cardType: item.cardType,
-                  creditTime: days,
-                }}
+                cardDetails={item}
+                creditTime={days}
                 style={styles.cardSeperator}
               />
             );
           }}
           ListEmptyComponent={ListEmptyComponent}
+          keyExtractor={item => item.id}
         />
       </View>
 

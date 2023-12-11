@@ -5,6 +5,7 @@ import {styles} from './Card.styles';
 import CardDots from './CardDots';
 import {Swipeable} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 const defaultValues = {
   bankName: 'Kotak Mahindra Bank',
@@ -28,11 +29,18 @@ const getImageBasedonCardType = cardType => {
   }
 };
 
-export default function Card({style, cardDetails = defaultValues}) {
+export default function Card({style, creditTime, cardDetails = defaultValues}) {
   const swipeableRef = useRef(null);
 
-  const {bankName, cardHolderName, cardLastDigits, cardType, creditTime} =
-    cardDetails;
+  const navigation = useNavigation();
+
+  const {
+    bankName,
+    cardHolderName = defaultValues.cardHolderName,
+    cardLastDigits,
+    cardType,
+    id,
+  } = cardDetails;
 
   const showAlert = () =>
     Alert.alert('Delete Card', 'Are you sure you want to delete this card?', [
@@ -48,10 +56,15 @@ export default function Card({style, cardDetails = defaultValues}) {
       },
     ]);
 
+  const handleEdit = () => {
+    navigation.navigate('AddAndEditCard', {cardDetails});
+  };
+
   const renderActions = () => {
     return (
       <View style={styles.actionWrapper}>
         <TouchableOpacity
+          onPress={handleEdit}
           style={[styles.actionButton, {backgroundColor: '#10ac84'}]}>
           <Text style={styles.actionButtonText}>Edit</Text>
         </TouchableOpacity>
@@ -65,6 +78,8 @@ export default function Card({style, cardDetails = defaultValues}) {
   };
 
   const {image, color} = getImageBasedonCardType(cardType);
+
+  console.log(id);
 
   return (
     <GestureHandlerRootView>

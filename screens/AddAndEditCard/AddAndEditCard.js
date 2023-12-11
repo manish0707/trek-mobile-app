@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
+import uuid from 'react-native-uuid';
 import {styles} from './AddAndEditCard.styles';
 import SelectModal from '../../components/SelectModal/SelectModal';
 import {bankNames} from '../../utils/bankNames';
@@ -7,6 +8,7 @@ import {images} from '../../images';
 import {commonStyles} from '../../styles/commonstyles';
 import {Strings} from '../../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useRoute} from '@react-navigation/native';
 
 const cardTypes = ['visa', 'mastercard', 'rupay'];
 
@@ -16,11 +18,25 @@ const dates = Array.from({length: 31}, (_, index) => ({
 }));
 
 export default function AddAndEditCard({navigation}) {
+  const {params} = useRoute();
+  const {cardDetails} = params || {};
+
+  const isEditing = !!cardDetails;
+
   const [selectedBank, setSelectedBank] = useState(null);
   const [cardType, setCardType] = useState(null);
   const [billPaymentDate, setBillPaymentDate] = useState({});
   const [billGenerationDate, setBillGenerationDate] = useState({});
   const [errorFields, setErrorFields] = useState({});
+
+  useEffect(() => {
+    if (isEditing) {
+      setSelectedBank({name: cardDetails.bankName});
+      setCardType(cardDetails.cardType);
+      setBillGenerationDate(cardDetails.billGenerationDate);
+      setBillPaymentDate(cardDetails.billPaymentDate);
+    }
+  }, [isEditing]);
 
   const handleCardType = type => {
     setCardType(type);
@@ -47,6 +63,7 @@ export default function AddAndEditCard({navigation}) {
     }
 
     const card = {
+      id: uuid.v4(),
       bankName: selectedBank.name,
       cardType,
       billPaymentDate,
@@ -61,17 +78,25 @@ export default function AddAndEditCard({navigation}) {
         cards.push(card);
       } else {
         const updatedCards = JSON.parse(cardsList);
-        updatedCards.push(card);
-        cards = updatedCards;
+
+        // In case of editin the card
+        if (isEditing) {
+          const tempCards = updatedCards.map(item =>
+            item.id === cardDetails.id ? card : item,
+          );
+          cards = tempCards;
+        } else {
+          updatedCards.push(card);
+          cards = updatedCards;
+        }
       }
+      console.log(cards);
       await AsyncStorage.setItem(Strings.cardsListKey, JSON.stringify(cards));
       navigation.navigate('Home');
     } catch (e) {
       console.log(e);
     }
   };
-
-  console.log({errorFields});
 
   const handleSelectBank = value => {
     setSelectedBank(value);
@@ -93,6 +118,8 @@ export default function AddAndEditCard({navigation}) {
       setErrorFields({...errorFields, billGenerationDate: false});
     }
   };
+
+  console.log(cardDetails, isEditing);
 
   return (
     <View style={styles.wrapper}>
