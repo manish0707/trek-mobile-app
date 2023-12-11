@@ -52,6 +52,20 @@ export default function Home({navigation}) {
     [navigation],
   );
 
+  const handleDeleteCard = async id => {
+    try {
+      const cards = await AsyncStorage.getItem(Strings.cardsListKey);
+      const udpatedCardsList = JSON.parse(cards).filter(item => item.id !== id);
+      await AsyncStorage.setItem(
+        Strings.cardsListKey,
+        JSON.stringify(udpatedCardsList),
+      );
+      setCardsList(udpatedCardsList);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <View style={styles.wrap}>
       <View style={styles.screen}>
@@ -68,6 +82,7 @@ export default function Home({navigation}) {
                 cardDetails={item}
                 creditTime={days}
                 style={styles.cardSeperator}
+                handleDeleteCard={handleDeleteCard}
               />
             );
           }}

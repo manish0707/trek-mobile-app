@@ -6,6 +6,8 @@ import CardDots from './CardDots';
 import {Swipeable} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Strings} from '../../utils/constants';
 
 const defaultValues = {
   bankName: 'Kotak Mahindra Bank',
@@ -29,7 +31,12 @@ const getImageBasedonCardType = cardType => {
   }
 };
 
-export default function Card({style, creditTime, cardDetails = defaultValues}) {
+export default function Card({
+  style,
+  handleDeleteCard,
+  creditTime,
+  cardDetails = defaultValues,
+}) {
   const swipeableRef = useRef(null);
 
   const navigation = useNavigation();
@@ -46,13 +53,10 @@ export default function Card({style, creditTime, cardDetails = defaultValues}) {
     Alert.alert('Delete Card', 'Are you sure you want to delete this card?', [
       {
         text: 'Cancel',
-        onPress: () => console.log('CANCEL'),
-        style: 'cancel',
       },
       {
         text: 'Yes',
-        onPress: () => console.log('CANCEL'),
-        style: 'yes',
+        onPress: () => handleDeleteCard(id),
       },
     ]);
 
