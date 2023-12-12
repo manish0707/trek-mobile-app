@@ -94,8 +94,6 @@ export default function Card({
 
   const {image, color} = getImageBasedonCardType(cardType);
 
-  console.log(id);
-
   return (
     <GestureHandlerRootView>
       <Swipeable ref={swipeableRef} renderRightActions={renderActions}>

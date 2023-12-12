@@ -36,8 +36,6 @@ export default function AddAndEditCard({navigation}) {
   const [billGenerationDate, setBillGenerationDate] = useState(null);
   const [errorFields, setErrorFields] = useState({});
 
-  console.log(cardDetails);
-
   useEffect(() => {
     if (isEditing) {
       setSelectedBank({name: cardDetails.bankName});
@@ -99,7 +97,6 @@ export default function AddAndEditCard({navigation}) {
           cards = updatedCards;
         }
       }
-      console.log(cards);
       await AsyncStorage.setItem(Strings.cardsListKey, JSON.stringify(cards));
       navigation.navigate('Home');
     } catch (e) {
@@ -125,8 +122,6 @@ export default function AddAndEditCard({navigation}) {
       setErrorFields({billPaymentDate: false});
     }
   };
-
-  console.log(cardDetails, isEditing);
 
   return (
     <View style={styles.wrapper}>
