@@ -47,8 +47,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     color: 'black',
     fontSize: 18,
-    paddingLeft: 10,
     marginTop: 10,
+    padding: 10,
   },
   inputInfo: {
     color: 'gray',
