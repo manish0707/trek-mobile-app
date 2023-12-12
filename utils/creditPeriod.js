@@ -13,7 +13,10 @@ const getMaxCredit = (billGenDate, billPaymentDate) => {
   return days;
 };
 
-export const getMaxCreditDays = (billGenDate, billPayDate) => {
+export const getMaxCreditDays = (genDate, payDate) => {
+  const billGenDate = isNaN(genDate) ? Number(genDate) : genDate;
+  const billPayDate = isNaN(payDate) ? Number(payDate) : payDate;
+
   if (billGenDate === billPayDate)
     throw new Error('Bill Generation and Paymente Date cannot be same! ');
 

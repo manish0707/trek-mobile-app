@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import uuid from 'react-native-uuid';
 import {styles} from './AddAndEditCard.styles';
 import SelectModal from '../../components/SelectModal/SelectModal';
@@ -25,9 +32,11 @@ export default function AddAndEditCard({navigation}) {
 
   const [selectedBank, setSelectedBank] = useState(null);
   const [cardType, setCardType] = useState(null);
-  const [billPaymentDate, setBillPaymentDate] = useState({});
-  const [billGenerationDate, setBillGenerationDate] = useState({});
+  const [billPaymentDate, setBillPaymentDate] = useState(null);
+  const [billGenerationDate, setBillGenerationDate] = useState(null);
   const [errorFields, setErrorFields] = useState({});
+
+  console.log(cardDetails);
 
   useEffect(() => {
     if (isEditing) {
@@ -54,11 +63,11 @@ export default function AddAndEditCard({navigation}) {
       return setErrorFields({cardType: true});
     }
 
-    if (!billGenerationDate?.date?.name) {
+    if (!billGenerationDate) {
       return setErrorFields({billGenerationDate: true});
     }
 
-    if (!billPaymentDate?.date?.name) {
+    if (!billPaymentDate) {
       return setErrorFields({billPaymentDate: true});
     }
 
@@ -105,17 +114,15 @@ export default function AddAndEditCard({navigation}) {
     }
   };
 
-  const handleSelectBillPayDate = date => {
-    setBillPaymentDate({date: date});
-    if (errorFields.billPaymentDate) {
-      setErrorFields({...errorFields, billPaymentDate: false});
+  const handleBillGenFocus = () => {
+    if (errorFields.billGenerationDate) {
+      setErrorFields({billGenerationDate: false});
     }
   };
 
-  const handleSelectBillGenDate = date => {
-    setBillGenerationDate({date: date});
-    if (errorFields.billGenerationDate) {
-      setErrorFields({...errorFields, billGenerationDate: false});
+  const handleBillPayFocus = () => {
+    if (errorFields.billPaymentDate) {
+      setErrorFields({billPaymentDate: false});
     }
   };
 
@@ -123,7 +130,7 @@ export default function AddAndEditCard({navigation}) {
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.content}>
+      <ScrollView style={styles.content}>
         <Text style={styles.heading}>Add Your Card Here</Text>
 
         <Text style={[styles.fieldHeading, styles.fieldSeperator]}>
@@ -168,41 +175,41 @@ export default function AddAndEditCard({navigation}) {
         ) : null}
 
         <Text style={[styles.fieldHeading, styles.fieldSeperator]}>
-          Bill Generation Date
+          Bill Generation Day
         </Text>
-        <View>
-          <SelectModal
-            list={dates}
-            onSelect={handleSelectBillGenDate}
-            modalHeading="Search Date"
-            placeholder="Date"
-            selectedValue={billGenerationDate?.date?.name}
-            style={styles.paymentDate}
-            enableSearch={false}
-          />
-        </View>
+        <TextInput
+          keyboardType="number-pad"
+          onFocus={handleBillGenFocus}
+          defaultValue={billGenerationDate}
+          maxLength={2}
+          placeholder="Enter day of the month"
+          style={styles.input}
+          onChangeText={value => setBillGenerationDate(value)}
+        />
+        <Text style={styles.inputInfo}>Ex: 20th of every month</Text>
+
         {errorFields.billGenerationDate ? (
           <Text style={styles.errorText}>This is required</Text>
         ) : null}
 
         <Text style={[styles.fieldHeading, styles.fieldSeperator]}>
-          Bill Payment Date
+          Bill Payment Day
         </Text>
-        <View>
-          <SelectModal
-            list={dates}
-            onSelect={handleSelectBillPayDate}
-            modalHeading="Search Date"
-            placeholder="Date"
-            selectedValue={billPaymentDate?.date?.name}
-            style={styles.paymentDate}
-            enableSearch={false}
-          />
-        </View>
+        <TextInput
+          keyboardType="number-pad"
+          onFocus={handleBillPayFocus}
+          defaultValue={billPaymentDate}
+          maxLength={2}
+          placeholder="Enter day of the month"
+          style={styles.input}
+          onChangeText={value => setBillPaymentDate(value)}
+        />
+        <Text style={styles.inputInfo}>Ex: 5th of every month</Text>
+
         {errorFields.billPaymentDate ? (
           <Text style={styles.errorText}>This is required</Text>
         ) : null}
-      </View>
+      </ScrollView>
       <TouchableOpacity
         onPress={handleSaveCard}
         style={[commonStyles.button, styles.saveBtn]}>

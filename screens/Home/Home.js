@@ -74,8 +74,8 @@ export default function Home({navigation}) {
           data={cardsList}
           renderItem={({item}) => {
             const days = getMaxCreditDays(
-              item.billGenerationDate.date.code,
-              item.billPaymentDate.date.code,
+              item.billGenerationDate,
+              item.billPaymentDate,
             );
             return (
               <Card

@@ -40,5 +40,19 @@ export const styles = StyleSheet.create({
   selectedCardType: {borderColor: 'green', borderWidth: 2},
   paymentDate: {marginRight: 10},
   saveBtn: {margin: 20},
-  errorText: {color: 'red', fontSize: 16}
+  errorText: {color: 'red', fontSize: 16},
+  input: {
+    borderWidth: 1,
+    borderColor: Colors.lightGray,
+    borderRadius: 10,
+    color: 'black',
+    fontSize: 18,
+    paddingLeft: 10,
+    marginTop: 10,
+  },
+  inputInfo: {
+    color: 'gray',
+    marginTop: 4,
+    marginLeft: 4,
+  },
 });
