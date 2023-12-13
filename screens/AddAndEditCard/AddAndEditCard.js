@@ -195,6 +195,7 @@ export default function AddAndEditCard({navigation}) {
           maxLength={2}
           placeholder="Enter day of the month"
           style={styles.input}
+          placeholderTextColor="gray"
           onChangeText={value => setBillPaymentDate(value)}
         />
         <Text style={styles.inputInfo}>Ex: 5th of every month</Text>
