@@ -31,7 +31,7 @@ export default function Home({navigation}) {
       try {
         const cards = await AsyncStorage.getItem(Strings.cardsListKey);
         if (cards) {
-          setCardsList(JSON.parse(cards));
+          setCardsList(JSON.parse(cards).sort(({days: a}, {days: b}) => b - a));
         }
       } catch (e) {
         console.log(e);
