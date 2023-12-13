@@ -20,7 +20,6 @@ import {getMaxCreditDays} from '../../utils/creditPeriod';
 
 const cardTypes = ['visa', 'mastercard', 'rupay'];
 
-
 export default function AddAndEditCard({navigation}) {
   const {params} = useRoute();
   const {cardDetails} = params || {};
@@ -177,6 +176,7 @@ export default function AddAndEditCard({navigation}) {
           maxLength={2}
           placeholder="Enter day of the month"
           style={styles.input}
+          placeholderTextColor="gray"
           onChangeText={value => setBillGenerationDate(value)}
         />
         <Text style={styles.inputInfo}>Ex: 20th of every month</Text>
