@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Vibration,
   View,
 } from 'react-native';
 import {images} from '../../images';
@@ -13,8 +14,6 @@ import CardDots from './CardDots';
 import {Swipeable} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Strings} from '../../utils/constants';
 
 const defaultValues = {
   bankName: 'Kotak Mahindra Bank',
@@ -90,6 +89,7 @@ export default function Card({
 
   const handleLongPress = () => {
     swipeableRef.current?.openRight();
+    Vibration.vibrate();
   };
 
   const {image, color} = getImageBasedonCardType(cardType);

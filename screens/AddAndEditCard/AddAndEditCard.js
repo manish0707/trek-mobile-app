@@ -16,13 +16,10 @@ import {commonStyles} from '../../styles/commonstyles';
 import {Strings} from '../../utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useRoute} from '@react-navigation/native';
+import {getMaxCreditDays} from '../../utils/creditPeriod';
 
 const cardTypes = ['visa', 'mastercard', 'rupay'];
 
-const dates = Array.from({length: 31}, (_, index) => ({
-  name: index + 1,
-  code: index + 1,
-}));
 
 export default function AddAndEditCard({navigation}) {
   const {params} = useRoute();
@@ -75,6 +72,7 @@ export default function AddAndEditCard({navigation}) {
       cardType,
       billPaymentDate,
       billGenerationDate,
+      days: getMaxCreditDays(billGenerationDate, billPaymentDate),
     };
 
     try {

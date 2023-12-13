@@ -6,7 +6,6 @@ import {commonStyles} from '../../styles/commonstyles';
 import Card from '../../components/Card/Card';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Strings} from '../../utils/constants';
-import {getMaxCreditDays} from '../../utils/creditPeriod';
 
 const EmptyCard = ({navigation}) => {
   return (
@@ -73,14 +72,10 @@ export default function Home({navigation}) {
           contentContainerStyle={styles.listWrap}
           data={cardsList}
           renderItem={({item}) => {
-            const days = getMaxCreditDays(
-              item.billGenerationDate,
-              item.billPaymentDate,
-            );
             return (
               <Card
                 cardDetails={item}
-                creditTime={days}
+                creditTime={item.days}
                 style={styles.cardSeperator}
                 handleDeleteCard={handleDeleteCard}
               />
