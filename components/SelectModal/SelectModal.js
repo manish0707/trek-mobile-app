@@ -77,6 +77,7 @@ export default function SelectModal({
                     onChangeText={onChangeText}
                     placeholder="Search"
                     style={styles.searchInput}
+                    placeholderTextColor="gray"
                   />
                 ) : null}
               </>
