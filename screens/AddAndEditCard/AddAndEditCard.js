@@ -65,13 +65,19 @@ export default function AddAndEditCard({navigation}) {
       return setErrorFields({billPaymentDate: true});
     }
 
+    const {nextBillPayDate, totalDays} = getMaxCreditDays(
+      billGenerationDate,
+      billPaymentDate,
+    );
+
     const card = {
       id: uuid.v4(),
       bankName: selectedBank.name,
       cardType,
       billPaymentDate,
       billGenerationDate,
-      days: getMaxCreditDays(billGenerationDate, billPaymentDate),
+      days: totalDays,
+      payDate: nextBillPayDate,
     };
 
     try {

@@ -14,6 +14,7 @@ import CardDots from './CardDots';
 import {Swipeable} from 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import dayjs from 'dayjs';
 
 const defaultValues = {
   bankName: 'Kotak Mahindra Bank',
@@ -53,6 +54,7 @@ export default function Card({
     cardLastDigits,
     cardType,
     id,
+    payDate,
   } = cardDetails;
 
   const showAlert = () =>
@@ -113,9 +115,14 @@ export default function Card({
 
             <View style={styles.tagWrap}>
               <View style={styles.creditTag}>
-                <Text style={styles.creditDays}>{creditTime} </Text>
-                <Text style={styles.creditDaysText}>days credit period</Text>
+                <Text style={styles.creditDaysText}>Payment Date</Text>
+                <Text style={styles.creditDays}>
+                  {dayjs(payDate).format('MMMM D, YYYY')}{' '}
+                </Text>
               </View>
+              <Text style={styles.payDate}>
+                {creditTime} days credit peroid
+              </Text>
             </View>
           </View>
         </TouchableWithoutFeedback>

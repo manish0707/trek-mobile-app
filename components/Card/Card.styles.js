@@ -48,8 +48,13 @@ export const styles = StyleSheet.create({
     borderRadius: 16,
     marginVertical: 10,
   },
-  creditDays: {fontSize: 28, fontWeight: 'bold', color: 'white'},
-  creditDaysText: {fontSize: 18, color: 'white'},
+  creditDays: {fontSize: 22, fontWeight: 'bold', color: 'white'},
+  creditDaysText: {
+    fontSize: 14,
+    color: 'white',
+    paddingVertical: 10,
+    marginRight: 10,
+  },
   actionWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,5 +69,16 @@ export const styles = StyleSheet.create({
   actionButtonText: {
     textAlign: 'center',
     color: 'white',
+  },
+  textWrap: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  payDate: {
+    color: 'white',
+    marginBottom: 10,
+    textAlign: 'center',
+    fontSize: 16,
   },
 });
