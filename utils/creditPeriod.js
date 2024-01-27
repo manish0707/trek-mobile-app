@@ -25,29 +25,28 @@ export const getMaxCreditDays = (genDate, payDate) => {
 
   const currentDate = dayjs();
 
-  let nextBillPayDate = dayjs();
-
-  let totalDays = -1;
-
-  // If date current month bill gen date is in past.
-  if (billGenDateForCurrentMonth.isAfter(currentDate)) {
-    if (billPaymentDateForCurrentMonth.isAfter(currentDate)) {
-      totalDays = getMaxCredit(
-        billGenDateForCurrentMonth,
-        billPaymentDateForCurrentMonth,
-      );
-    } else {
-      const nextMonthBillPay = dayjs().add(1, 'month').date(billPayDate);
-      nextBillPayDate = nextMonthBillPay;
-      totalDays = getMaxCredit(billGenDateForCurrentMonth, nextMonthBillPay);
-    }
-  } else {
-    // Calcuate the same date for next month
+  // bill gen date is in past
+  if (billGenDateForCurrentMonth.isBefore(currentDate)) {
     const nextMonthBillGen = dayjs().add(1, 'month').date(billGenDate);
-    const nextMonthBillPay = dayjs().add(1, 'month').date(billPayDate);
-    nextBillPayDate = nextMonthBillPay;
-    totalDays = getMaxCredit(nextMonthBillGen, nextMonthBillPay);
-  }
+    const nextBillPaymentDate = billPaymentDateForCurrentMonth.add(
+      // adding 0 or 1 based on the month of the pay date
+      nextMonthBillGen.get('month') + (payDate > genDate ? 0 : 1),
+      'month',
+    );
+    return {
+      days: getMaxCredit(nextMonthBillGen, nextBillPaymentDate),
+      payDate: nextBillPaymentDate,
+    };
+  } else {
+    let billpaymentDate = billPaymentDateForCurrentMonth;
 
-  return {totalDays, nextBillPayDate};
+    if (billPaymentDateForCurrentMonth.isBefore(currentDate)) {
+      billpaymentDate = billPaymentDateForCurrentMonth.add(1, 'month');
+    }
+
+    return {
+      days: getMaxCredit(billGenDateForCurrentMonth, billpaymentDate),
+      payDate: billPaymentDateForCurrentMonth,
+    };
+  }
 };

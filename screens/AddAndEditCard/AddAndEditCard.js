@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
   Image,
+  KeyboardAvoidingView,
+  Platform,
   ScrollView,
   Text,
   TextInput,
@@ -65,7 +67,7 @@ export default function AddAndEditCard({navigation}) {
       return setErrorFields({billPaymentDate: true});
     }
 
-    const {nextBillPayDate, totalDays} = getMaxCreditDays(
+    const {payDate, days} = getMaxCreditDays(
       billGenerationDate,
       billPaymentDate,
     );
@@ -76,8 +78,8 @@ export default function AddAndEditCard({navigation}) {
       cardType,
       billPaymentDate,
       billGenerationDate,
-      days: totalDays,
-      payDate: nextBillPayDate,
+      days: days,
+      payDate,
     };
 
     try {
@@ -127,7 +129,10 @@ export default function AddAndEditCard({navigation}) {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={100}
+      style={styles.wrapper}>
       <ScrollView style={styles.content}>
         <Text style={styles.heading}>Add Your Card Here</Text>
 
@@ -215,6 +220,6 @@ export default function AddAndEditCard({navigation}) {
         style={[commonStyles.button, styles.saveBtn]}>
         <Text style={commonStyles.buttonText}>Save Card</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
