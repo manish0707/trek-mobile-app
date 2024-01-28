@@ -46,7 +46,7 @@ export const getMaxCreditDays = (genDate, payDate) => {
 
     return {
       days: getMaxCredit(billGenDateForCurrentMonth, billpaymentDate),
-      payDate: billPaymentDateForCurrentMonth,
+      payDate: billpaymentDate,
     };
   }
 };
