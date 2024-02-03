@@ -8,7 +8,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Colors} from '../styles/Colors';
 import {MaxCreditStack} from './MaxCreditStack';
 import Home from '../screens/Home/Home';
-import ExpensesList from '../screens/Expenses/ExpensesList';
+import ExpensesList from '../screens/ExpensesList/ExpensesList';
+import {Platform} from 'react-native';
+import {ExpensesStack} from './ExpensesStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,11 +39,14 @@ const TabIcon = ({focused, name}) => {
   );
 };
 
-const screenNamesToHideBottomBar = ['AddAndEditCard'];
+const screenNamesToHideBottomBar = ['AddAndEditCard', 'AddExpense'];
 
 export default function Naviation() {
   const getScreenOptions = ({route}) => {
-    const options = {header: () => null, tabBarStyle: {height: 60}};
+    const options = {
+      header: () => null,
+      tabBarStyle: {height: Platform.OS === 'android' ? 60 : 100},
+    };
 
     const currentScreen = getFocusedRouteNameFromRoute(route);
     if (screenNamesToHideBottomBar.includes(currentScreen)) {
@@ -69,8 +74,8 @@ export default function Naviation() {
             tabBarLabel: () => null,
             tabBarIcon: values => <TabIcon {...values} name="wallet" />,
           }}
-          name="Wallet"
-          component={ExpensesList}
+          name="Expense Stack"
+          component={ExpensesStack}
         />
         <Tab.Screen
           options={{
