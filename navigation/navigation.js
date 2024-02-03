@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
@@ -50,12 +50,6 @@ export default function Naviation() {
     return options;
   };
 
-  const getIcon = useCallback(iconName => <TabIcon name={iconName} />, []);
-
-  const tabBarIcon = iconName => {
-    return () => getIcon(iconName);
-  };
-
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={getScreenOptions}>
@@ -63,7 +57,7 @@ export default function Naviation() {
           options={{
             ...headerStyles,
             tabBarLabel: () => null,
-            tabBarIcon: tabBarIcon('home'),
+            tabBarIcon: values => <TabIcon {...values} name="home" />,
           }}
           name="Home"
           component={Home}
@@ -73,7 +67,7 @@ export default function Naviation() {
             ...headerStyles,
 
             tabBarLabel: () => null,
-            tabBarIcon: tabBarIcon('wallet'),
+            tabBarIcon: values => <TabIcon {...values} name="wallet" />,
           }}
           name="Wallet"
           component={ExpensesList}
@@ -82,7 +76,7 @@ export default function Naviation() {
           options={{
             ...headerStyles,
             tabBarLabel: () => null,
-            tabBarIcon: tabBarIcon('cards'),
+            tabBarIcon: values => <TabIcon {...values} name="cards" />,
           }}
           name="Max Credit"
           component={MaxCreditStack}
