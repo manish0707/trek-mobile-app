@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     paddingLeft: 10,
     borderColor: 'lightgray',
+    color: 'black',
   },
   btn: {
     margin: 10,
