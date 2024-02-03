@@ -1,5 +1,8 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Colors} from '../styles/Colors';
@@ -34,11 +37,22 @@ const TabIcon = ({focused, name}) => {
   );
 };
 
+const screenNamesToHideBottomBar = ['AddAndEditCard'];
+
 export default function Naviation() {
+  const getScreenOptions = ({route}) => {
+    const options = {header: () => null, tabBarStyle: {height: 60}};
+
+    const currentScreen = getFocusedRouteNameFromRoute(route);
+    if (screenNamesToHideBottomBar.includes(currentScreen)) {
+      options.tabBarStyle = {display: 'none'};
+    }
+    return options;
+  };
+
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{header: () => null, tabBarStyle: {height: 60}}}>
+      <Tab.Navigator screenOptions={getScreenOptions}>
         <Tab.Screen
           options={{
             ...headerStyles,
@@ -51,6 +65,7 @@ export default function Naviation() {
         <Tab.Screen
           options={{
             ...headerStyles,
+
             tabBarLabel: () => null,
             tabBarIcon: values => <TabIcon {...values} name="wallet" />,
           }}
