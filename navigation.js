@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from './screens/Home/Home';
 import IntroScreen from './screens/Intro/IntroScreen';
 import AddAndEditCard from './screens/AddAndEditCard/AddAndEditCard';
 import {Colors} from './styles/Colors';
 import {Strings} from './utils/constants';
 
-const Stack = createNativeStackNavigator();
+const Stack = createBottomTabNavigator();
 
 const headerStyles = {
   title: Strings.appName,
