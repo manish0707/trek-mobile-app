@@ -41,6 +41,7 @@ export default function AddAndEditCard({navigation}) {
       setBillGenerationDate(cardDetails.billGenerationDate);
       setBillPaymentDate(cardDetails.billPaymentDate);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditing]);
 
   const handleCardType = type => {

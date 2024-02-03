@@ -5,6 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Colors} from '../styles/Colors';
 import {MaxCreditStack} from './MaxCreditStack';
 import Home from '../screens/Home/Home';
+import ExpensesList from '../screens/Expenses/ExpensesList';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ const iconStyles = {
 const TabIcon = ({focused, name}) => {
   return (
     <Icon
-      style={focused ? iconStyles : {}}
+      style={focused ? iconStyles : [iconStyles, {borderColor: 'white'}]}
       size={28}
       name={name}
       color={'black'}
@@ -37,7 +38,7 @@ export default function Naviation() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{header: () => null, tabBarStyle: {height: 80}}}>
+        screenOptions={{header: () => null, tabBarStyle: {height: 60}}}>
         <Tab.Screen
           options={{
             ...headerStyles,
@@ -54,7 +55,7 @@ export default function Naviation() {
             tabBarIcon: values => <TabIcon {...values} name="wallet" />,
           }}
           name="Wallet"
-          component={MaxCreditStack}
+          component={ExpensesList}
         />
         <Tab.Screen
           options={{
