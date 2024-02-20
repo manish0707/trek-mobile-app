@@ -1,11 +1,11 @@
 import React, {createContext, useEffect, useState} from 'react';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-type User = FirebaseAuthTypes.User;
+export type User = FirebaseAuthTypes.User;
 
 export const AuthContext = createContext<{
   user: User | null;
-  setUser: (user: User) => void;
+  setUser: (user: User | null) => void;
 }>({
   user: null,
   setUser: () => {},

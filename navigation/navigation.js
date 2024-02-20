@@ -13,6 +13,7 @@ import {Platform} from 'react-native';
 import {ExpensesStack} from './ExpensesStack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AuthContext} from '../context/AuthContext';
+import Login from '../screens/Login/Login';
 
 const Tab = createBottomTabNavigator();
 
@@ -61,6 +62,8 @@ export default function Naviation() {
     return options;
   };
 
+  console.log({user}, "navigatio")
+
   return (
     <NavigationContainer>
       {user ? (
@@ -96,7 +99,7 @@ export default function Naviation() {
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="auth" component={Home} />
+          <Stack.Screen name="auth" component={Login} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
