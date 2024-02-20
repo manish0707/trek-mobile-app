@@ -8,7 +8,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Colors} from '../styles/Colors';
 import {MaxCreditStack} from './MaxCreditStack';
 import Home from '../screens/Home/Home';
-import ExpensesList from '../screens/ExpensesList/ExpensesList';
 import {Platform} from 'react-native';
 import {ExpensesStack} from './ExpensesStack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -62,7 +61,7 @@ export default function Naviation() {
     return options;
   };
 
-  console.log({user}, "navigatio")
+  console.log({user}, 'navigatio');
 
   return (
     <NavigationContainer>
@@ -99,7 +98,11 @@ export default function Naviation() {
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="auth" component={Login} />
+          <Stack.Screen
+            options={{header: () => null}}
+            name="auth"
+            component={Login}
+          />
         </Stack.Navigator>
       )}
     </NavigationContainer>

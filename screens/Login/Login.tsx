@@ -46,8 +46,11 @@ export default function Login() {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Icon name="home" size={100} />
-      <Text>Home Screen</Text>
-      <GoogleSigninButton onPress={signinWithGoogle} />
+      <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={signinWithGoogle}
+      />
     </View>
   );
 }
