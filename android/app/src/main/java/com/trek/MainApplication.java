@@ -1,4 +1,4 @@
-package com.maxcredit;
+package com.trek;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

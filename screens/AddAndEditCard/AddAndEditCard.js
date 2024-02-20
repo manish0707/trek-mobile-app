@@ -41,6 +41,7 @@ export default function AddAndEditCard({navigation}) {
       setBillGenerationDate(cardDetails.billGenerationDate);
       setBillPaymentDate(cardDetails.billPaymentDate);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEditing]);
 
   const handleCardType = type => {
@@ -103,7 +104,7 @@ export default function AddAndEditCard({navigation}) {
         }
       }
       await AsyncStorage.setItem(Strings.cardsListKey, JSON.stringify(cards));
-      navigation.navigate('Home');
+      navigation.navigate('CardsListScreen');
     } catch (e) {
       console.log(e);
     }
