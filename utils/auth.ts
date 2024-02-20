@@ -8,10 +8,11 @@ export const signout = async () => {
   await GoogleSignin.signOut();
 };
 
-export const createUserInFirebase = async (
-  user: User,
+export const saveDataInFirebase = async (
+  docunameName: string,
+  data: any,
   successCb: () => void,
   errorCb: (error: any) => void,
 ) => {
-  firestore().collection('users').add(user).then(successCb).catch(errorCb);
+  firestore().collection(docunameName).add(data).then(successCb).catch(errorCb);
 };

@@ -11,7 +11,8 @@ import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../../context/AuthContext';
 import {images} from '../../images';
 import {LoaderContext} from '../../context/LoaderContext';
-import {createUserInFirebase} from '../../utils/auth';
+import {saveDataInFirebase} from '../../utils/auth';
+import {userCollection} from '../../firebaseConfig';
 
 GoogleSignin.configure({
   webClientId: webClientId,
@@ -34,7 +35,8 @@ export default function Login() {
 
       await auth().signInWithCredential(googleCredentials);
 
-      createUserInFirebase(
+      saveDataInFirebase(
+        userCollection,
         userInfo.user,
         () => {
           setUser(userInfo);

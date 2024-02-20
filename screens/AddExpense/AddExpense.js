@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import CustomBottomSheet from '../../components/CustomBottomSheet/CustomBottomSheet';
 import {
   ScrollView,
@@ -10,9 +10,40 @@ import {
 import {styles} from './AddExpense.styles';
 import {commonStyles} from '../../styles/commonstyles';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';
+import {saveDataInFirebase} from '../../utils/auth';
+import {expenseCollection} from '../../firebaseConfig';
+import {AuthContext} from '../../context/AuthContext';
+import {useNavigation} from '@react-navigation/native';
 
 export default function AddExpense() {
   let modalRef = useRef(null);
+
+  const {user} = useContext(AuthContext);
+
+  const navigation = useNavigation();
+
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState(null);
+  const [cateogry, setCategory] = useState('');
+
+  const handleAdd = () => {
+    saveDataInFirebase(
+      expenseCollection,
+      {
+        name: title,
+        amount: amount,
+        cateogry,
+        userId: user.uid,
+      },
+      () => {
+        navigation.goBack();
+      },
+      e => {
+        console.log('errr adding expe', e);
+      },
+    );
+  };
+
   return (
     <CustomBottomSheet
       closeOnBackdopPress={false}
@@ -24,18 +55,27 @@ export default function AddExpense() {
           <View>
             <Text style={styles.heading}>Add Expense</Text>
             <Text style={styles.subHeading}>Title</Text>
-            <TextInput style={styles.input} />
+            <TextInput
+              onChangeText={text => setTitle(text)}
+              style={styles.input}
+            />
 
             <Text style={styles.subHeading}>Amount</Text>
-            <TextInput keyboardType="number-pad" style={styles.input} />
+            <TextInput
+              onChangeText={amount => setAmount(amount)}
+              keyboardType="number-pad"
+              style={styles.input}
+            />
 
             <Text style={styles.subHeading}>Category</Text>
 
-            <MultiSelect />
+            <MultiSelect onSelect={item => setCategory(item)} />
           </View>
         </View>
       </ScrollView>
-      <TouchableOpacity style={[commonStyles.button, styles.btn]}>
+      <TouchableOpacity
+        onPress={handleAdd}
+        style={[commonStyles.button, styles.btn]}>
         <Text style={commonStyles.buttonText}>Add</Text>
       </TouchableOpacity>
     </CustomBottomSheet>

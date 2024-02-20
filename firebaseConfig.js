@@ -1,3 +1,2 @@
-export const collectionName = 'trek';
-
-export const userDocumentName = 'users';
+export const userCollection = 'users';
+export const expenseCollection = 'expenses';

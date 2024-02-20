@@ -13,8 +13,13 @@ const categories = [
   'Eat',
 ];
 
-export default function MultiSelect({items = categories}) {
+export default function MultiSelect({items = categories, onSelect = () => {}}) {
   const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleSelect = item => {
+    setSelectedItem(item);
+    onSelect(item);
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -22,7 +27,7 @@ export default function MultiSelect({items = categories}) {
         const isSelected = selectedItem === item;
         return (
           <TouchableOpacity
-            onPress={() => setSelectedItem(item)}
+            onPress={() => handleSelect(item)}
             key={`${index}-${item}`}
             style={[
               styles.capsule,
