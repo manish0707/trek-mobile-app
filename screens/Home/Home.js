@@ -1,5 +1,5 @@
-import React from 'react';
-import {Alert, Text, View} from 'react-native';
+import React, {useContext} from 'react';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   GoogleSignin,
@@ -8,6 +8,7 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {webClientId} from '../../constants';
 import auth from '@react-native-firebase/auth';
+import {AuthContext} from '../../context/AuthContext';
 
 GoogleSignin.configure({
   webClientId: webClientId,
@@ -15,6 +16,8 @@ GoogleSignin.configure({
 });
 
 export default function Home() {
+  const {user, setUser} = useContext(AuthContext);
+
   const signinWithGoogle = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -26,7 +29,7 @@ export default function Home() {
 
       await auth().signInWithCredential(googleCredentials);
 
-      Alert.alert('LOGIN SUCCESS', JSON.stringify(userInfo));
+      setUser(userInfo);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -44,11 +47,24 @@ export default function Home() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await auth().signOut();
+      await GoogleSignin.signOut();
+      setUser(null);
+    } catch (e) {
+      Alert.alert('Error', JSON.stringify(e));
+    }
+  };
+
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Icon name="home" size={100} />
       <Text>Home Screen</Text>
       <GoogleSigninButton onPress={signinWithGoogle} />
+      <TouchableOpacity onPress={handleLogout}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   NavigationContainer,
   getFocusedRouteNameFromRoute,
@@ -11,8 +11,12 @@ import Home from '../screens/Home/Home';
 import ExpensesList from '../screens/ExpensesList/ExpensesList';
 import {Platform} from 'react-native';
 import {ExpensesStack} from './ExpensesStack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {AuthContext} from '../context/AuthContext';
 
 const Tab = createBottomTabNavigator();
+
+const Stack = createNativeStackNavigator();
 
 const headerStyles = {
   headerStyle: {backgroundColor: Colors.brand},
@@ -42,6 +46,8 @@ const TabIcon = ({focused, name}) => {
 const screenNamesToHideBottomBar = ['AddAndEditCard', 'AddExpense'];
 
 export default function Naviation() {
+  const {user} = useContext(AuthContext);
+
   const getScreenOptions = ({route}) => {
     const options = {
       header: () => null,
@@ -57,36 +63,42 @@ export default function Naviation() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator screenOptions={getScreenOptions}>
-        <Tab.Screen
-          options={{
-            ...headerStyles,
-            tabBarLabel: () => null,
-            tabBarIcon: values => <TabIcon {...values} name="home" />,
-          }}
-          name="Home"
-          component={Home}
-        />
-        <Tab.Screen
-          options={{
-            ...headerStyles,
+      {user ? (
+        <Tab.Navigator screenOptions={getScreenOptions}>
+          <Tab.Screen
+            options={{
+              ...headerStyles,
+              tabBarLabel: () => null,
+              tabBarIcon: values => <TabIcon {...values} name="home" />,
+            }}
+            name="Home"
+            component={Home}
+          />
+          <Tab.Screen
+            options={{
+              ...headerStyles,
 
-            tabBarLabel: () => null,
-            tabBarIcon: values => <TabIcon {...values} name="wallet" />,
-          }}
-          name="Expense Stack"
-          component={ExpensesStack}
-        />
-        <Tab.Screen
-          options={{
-            ...headerStyles,
-            tabBarLabel: () => null,
-            tabBarIcon: values => <TabIcon {...values} name="cards" />,
-          }}
-          name="Max Credit"
-          component={MaxCreditStack}
-        />
-      </Tab.Navigator>
+              tabBarLabel: () => null,
+              tabBarIcon: values => <TabIcon {...values} name="wallet" />,
+            }}
+            name="Expense Stack"
+            component={ExpensesStack}
+          />
+          <Tab.Screen
+            options={{
+              ...headerStyles,
+              tabBarLabel: () => null,
+              tabBarIcon: values => <TabIcon {...values} name="cards" />,
+            }}
+            name="Max Credit"
+            component={MaxCreditStack}
+          />
+        </Tab.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="auth" component={Home} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
