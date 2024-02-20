@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "771116587546",
-    "project_id": "trek-mobile-37c7d",
-    "storage_bucket": "trek-mobile-37c7d.appspot.com"
+    "project_number": "171599076764",
+    "project_id": "trek-mobile-ff0fd",
+    "storage_bucket": "trek-mobile-ff0fd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:771116587546:android:88eb928cc847eb5246cfa3",
+        "mobilesdk_app_id": "1:171599076764:android:26a61352170a0b48c53c59",
         "android_client_info": {
           "package_name": "com.trek"
         }
       },
       "oauth_client": [
         {
-          "client_id": "771116587546-9ns0at3dck9rhbjnkv3gvp8pdrfrot03.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.trek",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "771116587546-9v84j3od3c23o14bts9tn6c1q7oav3i6.apps.googleusercontent.com",
+          "client_id": "171599076764-k9le0ckm8c642fbi26ps1354pjebvgpa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDWUypMRqiatuSr1tToK58SQ-UXvDEntb4"
+          "current_key": "AIzaSyAVhTjZWAkikC9unGApK3cnf1K-y0gooRA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "771116587546-9v84j3od3c23o14bts9tn6c1q7oav3i6.apps.googleusercontent.com",
+              "client_id": "171599076764-k9le0ckm8c642fbi26ps1354pjebvgpa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
