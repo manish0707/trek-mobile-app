@@ -10,6 +10,7 @@ import {webClientId} from '../../constants';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../../context/AuthContext';
 import {images} from '../../images';
+import {LoaderContext} from '../../context/LoaderContext';
 
 GoogleSignin.configure({
   webClientId: webClientId,
@@ -18,9 +19,11 @@ GoogleSignin.configure({
 
 export default function Login() {
   const {setUser} = useContext(AuthContext);
+  const {setIsLoading, isLoading} = useContext(LoaderContext);
 
   const signinWithGoogle = async () => {
     try {
+      setIsLoading(true);
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 
@@ -42,6 +45,7 @@ export default function Login() {
         console.log(error);
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -59,6 +63,7 @@ export default function Login() {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={signinWithGoogle}
+        disabled={isLoading}
       />
     </View>
   );
