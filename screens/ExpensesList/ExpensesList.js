@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './ExpensesList.styles';
 import {getMyExpenses} from '../../utils/expenses';
@@ -24,12 +24,51 @@ export default function ExpensesList({navigation}) {
     );
   }, [user.uid, isfocused]);
 
+  console.log(expenses);
+
   return (
     <View style={styles.wrapper}>
-      <Text>Expenses List</Text>
-      {expenses.map((exp, index) => (
-        <Text key={index}>{exp.name}</Text>
-      ))}
+      <Text
+        style={{
+          textAlign: 'center',
+          marginVertical: 10,
+          fontSize: 24,
+          color: 'black',
+        }}>
+        Expenses List
+      </Text>
+
+      <FlatList
+        data={expenses}
+        contentContainerStyle={{paddingBottom: 120}}
+        renderItem={({item}) => {
+          return (
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderWidth: 1,
+                padding: 10,
+                marginVertical: 10,
+                margin: 10,
+                borderColor: 'lightgray',
+                borderRadius: 4,
+              }}>
+              <View>
+                <Text style={{fontSize: 20, color: 'black'}}>{item.name}</Text>
+                <Text style={{fontSize: 14, color: 'gray', marginTop: 2}}>
+                  {item.cateogry}
+                </Text>
+              </View>
+              <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
+                ₹{item.amount}
+              </Text>
+            </View>
+          );
+        }}
+      />
+
       <TouchableOpacity onPress={handleAdd} style={styles.addExpenseButton}>
         <Icon name="plus" color="white" size={50} />
       </TouchableOpacity>

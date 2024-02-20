@@ -27,6 +27,8 @@ export default function AddExpense() {
   const [cateogry, setCategory] = useState('');
 
   const handleAdd = () => {
+    if (!title || !amount) return;
+
     saveDataInFirebase(
       expenseCollection,
       {

@@ -4,12 +4,12 @@ import {Colors} from '../../styles/Colors';
 export const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: 'white',
   },
   addExpenseButton: {
     position: 'absolute',
     bottom: 40,
+    alignSelf: 'center',
     borderWidth: 1,
     borderRadius: 50,
     backgroundColor: Colors.brand,
