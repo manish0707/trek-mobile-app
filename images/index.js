@@ -7,4 +7,6 @@ export const images = {
   visa: require('../images/visa.png'),
   plus: require('../images/plus-white.png'),
   downArrow: require('../images/down-arrow.png'),
+  brandLogo: require('../images/brand-logo.svg'),
+  brandLogoPng: require('../images/brand-logo.png'),
 };

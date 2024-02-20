@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   GoogleSignin,
@@ -9,6 +9,7 @@ import {
 import {webClientId} from '../../constants';
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from '../../context/AuthContext';
+import {images} from '../../images';
 
 GoogleSignin.configure({
   webClientId: webClientId,
@@ -45,7 +46,15 @@ export default function Login() {
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Icon name="home" size={100} />
+      <Image
+        source={images.brandLogoPng}
+        style={{borderWidth: 1, height: 250, width: 250}}
+      />
+
+      <Text style={{fontSize: 30, fontWeight: '600', marginTop: 20}}>Trek</Text>
+      <Text style={{fontSize: 20, marginBottom: 20, marginTop: 10}}>
+        Financial Trekking
+      </Text>
       <GoogleSigninButton
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
