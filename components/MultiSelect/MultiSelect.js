@@ -3,18 +3,13 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './MultiSelect.styles';
 import {Colors} from '../../styles/Colors';
 
-const categories = [
-  'Food',
-  'Entertaiment',
-  'Subscription',
-  'Pet',
-  'Wellness',
-  'Education',
-  'Eat',
-];
-
-export default function MultiSelect({items = categories, onSelect = () => {}}) {
-  const [selectedItem, setSelectedItem] = useState(null);
+export default function MultiSelect({
+  items = [],
+  defaultValue = null,
+  onSelect = () => {},
+  selectedItemText = '',
+}) {
+  const [selectedItem, setSelectedItem] = useState(defaultValue);
 
   const handleSelect = item => {
     setSelectedItem(item);
@@ -34,7 +29,7 @@ export default function MultiSelect({items = categories, onSelect = () => {}}) {
               isSelected ? {backgroundColor: Colors.brand} : {},
             ]}>
             <Text style={[styles.text, isSelected ? {color: 'white'} : {}]}>
-              {item}
+              {isSelected && selectedItemText ? selectedItemText : item}
             </Text>
           </TouchableOpacity>
         );

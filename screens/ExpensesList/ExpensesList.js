@@ -73,7 +73,7 @@ export default function ExpensesList({navigation}) {
                   <Text style={{fontSize: 20, color: 'black'}}>
                     {item.name}
                   </Text>
-                  <Text style={{fontSize: 14, color: 'gray', marginTop: 2}}>
+                  <Text style={{fontSize: 14, color: 'gray', marginTop: 4}}>
                     {item.cateogry}
                   </Text>
                 </View>

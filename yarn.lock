@@ -6052,6 +6052,15 @@ react-native-screens@^3.29.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-ui-datepicker@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-ui-datepicker/-/react-native-ui-datepicker-2.0.1.tgz#c0c508e8d96b2e24bddeab31b2f2ba1afba9e072"
+  integrity sha512-H3QlYUUjqgRhPqQ1Itw1j2/Ya7auwImmg+H+Rl0HfWqAOrrAJv/1jSzwqgp9/0uCF7ZCD5CgXZMFS3+kzpbMbA==
+  dependencies:
+    dayjs "^1.11.10"
+    lodash "^4.17.21"
+    uninstall "^0.0.0"
+
 react-native-uuid@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-native-uuid/-/react-native-uuid-2.0.1.tgz#ed4e2dfb1683eddb66967eb5dca140dfe1abddb9"
@@ -6957,6 +6966,11 @@ unicode-property-aliases-ecmascript@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz#43d41e3be698bd493ef911077c9b131f827e8ccd"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
+
+uninstall@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/uninstall/-/uninstall-0.0.0.tgz#103e6e37e9c52ec857542cd259023d71c7a3fb2b"
+  integrity sha512-pjP/0+A4gsbDVa8XH/S2GZdT9NPJW8NFMy3GI7HnsWG+NAmFSSj3QidNosXBI9cPtxxNExEDdhKFO6sli8K3mA==
 
 universalify@^0.1.0:
   version "0.1.2"

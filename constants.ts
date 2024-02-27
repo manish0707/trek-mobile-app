@@ -1,2 +1,18 @@
 export const webClientId =
   '171599076764-k9le0ckm8c642fbi26ps1354pjebvgpa.apps.googleusercontent.com';
+
+export const categories = [
+  'Food',
+  'Entertaiment',
+  'Subscription',
+  'Pet',
+  'Wellness',
+  'Education',
+  'Eat',
+];
+
+export const dateOptions = ['Today', 'Yesterday', 'Custom'];
+
+export const constants = {
+  DATE_FORMAT: 'MMMM D, YYYY',
+};

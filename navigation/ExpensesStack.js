@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Colors} from '../styles/Colors';
 import AddExpense from '../screens/AddExpense/AddExpense';
 import ExpensesList from '../screens/ExpensesList/ExpensesList';
+import CalenderScreen from '../screens/CalenderScreen/CalenderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,10 +21,17 @@ export function ExpensesStack() {
       />
       <Stack.Screen
         options={{
-          title: 'Add Expense',
+          title: 'Trek',
         }}
         name="AddExpense"
         component={AddExpense}
+      />
+      <Stack.Screen
+        options={{
+          title: 'Calender Screen',
+        }}
+        name="CalenderScreen"
+        component={CalenderScreen}
       />
     </Stack.Navigator>
   );

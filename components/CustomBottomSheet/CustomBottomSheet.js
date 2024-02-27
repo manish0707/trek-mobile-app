@@ -10,7 +10,7 @@ export default function CustomBottomSheet({
 }) {
   const bottomSheetRef = useRef(null);
 
-  const snapPoints = useMemo(() => [1, '85%'], []);
+  const snapPoints = useMemo(() => [1, '95%'], []);
 
   useEffect(() => {
     if (getRefValue) {
