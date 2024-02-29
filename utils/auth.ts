@@ -10,9 +10,15 @@ export const signout = async () => {
 
 export const saveDataInFirebase = async (
   docunameName: string,
+  title: string | undefined,
   data: any,
   successCb: () => void,
   errorCb: (error: any) => void,
 ) => {
-  firestore().collection(docunameName).add(data).then(successCb).catch(errorCb);
+  firestore()
+    .collection(docunameName)
+    .doc(title)
+    .set(data)
+    .then(successCb)
+    .catch(errorCb);
 };

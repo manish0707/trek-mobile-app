@@ -6,11 +6,13 @@ export default function CustomBottomSheet({
   closeOnBackdopPress = true,
   defaultOpen = false,
   enablePanDownToClose = true,
+  height = '95%',
+  onBackDropPress,
   children,
 }) {
   const bottomSheetRef = useRef(null);
 
-  const snapPoints = useMemo(() => [1, '95%'], []);
+  const snapPoints = useMemo(() => [1, height], [height]);
 
   useEffect(() => {
     if (getRefValue) {
@@ -23,6 +25,7 @@ export default function CustomBottomSheet({
       <BottomSheetBackdrop
         {...props}
         pressBehavior={closeOnBackdopPress ? 'close' : 'none'}
+        onPress={onBackDropPress}
       />
     ),
     [closeOnBackdopPress],

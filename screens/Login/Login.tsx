@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Image, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import firestore from '@react-native-firebase/firestore';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -35,16 +35,29 @@ export default function Login() {
 
       await auth().signInWithCredential(googleCredentials);
 
-      saveDataInFirebase(
-        userCollection,
-        userInfo.user,
-        () => {
-          setUser(userInfo);
-        },
-        error => {
-          console.log(error);
-        },
-      );
+      const userExists = await firestore()
+        .collection(userCollection)
+        .doc(userInfo.user?.email)
+        .get();
+
+      if (!userExists._exists) {
+        saveDataInFirebase(
+          userCollection,
+          userInfo.user?.email,
+          userInfo.user,
+          () => {
+            setUser(userInfo);
+            setIsLoading(false);
+          },
+          error => {
+            console.log(error);
+            setIsLoading(false);
+          },
+        );
+      } else {
+        setUser(userInfo);
+        setIsLoading(false);
+      }
     } catch (error: any) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log(error);
@@ -55,8 +68,8 @@ export default function Login() {
       } else {
         console.log(error);
       }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

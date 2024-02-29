@@ -41,6 +41,7 @@ export default function AddExpense() {
 
     saveDataInFirebase(
       expenseCollection,
+      title,
       {
         name: title,
         amount: amount,
@@ -48,6 +49,7 @@ export default function AddExpense() {
         date: date.format(constants.DATE_FORMAT),
         userId: user.uid,
       },
+
       () => {
         navigation.goBack();
       },

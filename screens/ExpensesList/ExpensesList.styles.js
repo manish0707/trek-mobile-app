@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 10,
   },
   addExpenseButton: {
     position: 'absolute',
@@ -23,5 +24,15 @@ export const styles = StyleSheet.create({
     shadowRadius: 6.27,
 
     elevation: 10,
+  },
+  filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    borderColor: Colors.lightGray,
+    padding: 4,
+    paddingHorizontal: 10,
+    borderRadius: 8,
   },
 });

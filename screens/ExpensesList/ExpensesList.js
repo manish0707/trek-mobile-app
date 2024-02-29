@@ -11,10 +11,14 @@ import {styles} from './ExpensesList.styles';
 import {getMyExpenses} from '../../utils/expenses';
 import {AuthContext} from '../../context/AuthContext';
 import {useIsFocused} from '@react-navigation/native';
+import {Colors} from '../../styles/Colors';
+import CustomBottomSheet from '../../components/CustomBottomSheet/CustomBottomSheet';
 
 export default function ExpensesList({navigation}) {
   const [expenses, setExpenses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [openFilterPopup, setOpenFilterPopup] = useState(false);
+
   const {user} = useContext(AuthContext);
 
   const isfocused = useIsFocused();
@@ -37,6 +41,12 @@ export default function ExpensesList({navigation}) {
     );
   }, [user.uid, isfocused]);
 
+  const handleFilterPopup = () => {
+    setOpenFilterPopup(!openFilterPopup);
+  };
+
+  console.log(openFilterPopup);
+
   return (
     <View style={styles.wrapper}>
       <Text
@@ -49,12 +59,17 @@ export default function ExpensesList({navigation}) {
         Expenses List
       </Text>
 
+      <TouchableOpacity style={styles.filterButton} onPress={handleFilterPopup}>
+        <Text style={{fontSize: 16, color: 'black'}}>Filter</Text>
+        <Icon size={18} color="black" name="filter-variant" />
+      </TouchableOpacity>
+
       {isLoading ? (
         <ActivityIndicator size={40} />
       ) : (
         <FlatList
           data={expenses}
-          contentContainerStyle={{paddingBottom: 120}}
+          contentContainerStyle={{paddingBottom: 120, marginTop: 10}}
           renderItem={({item}) => {
             return (
               <View
@@ -65,7 +80,7 @@ export default function ExpensesList({navigation}) {
                   borderWidth: 1,
                   padding: 10,
                   marginVertical: 10,
-                  margin: 10,
+                  // margin: 10,
                   borderColor: 'lightgray',
                   borderRadius: 4,
                 }}>
@@ -90,6 +105,12 @@ export default function ExpensesList({navigation}) {
       <TouchableOpacity onPress={handleAdd} style={styles.addExpenseButton}>
         <Icon name="plus" color="white" size={50} />
       </TouchableOpacity>
+
+      {openFilterPopup && (
+        <CustomBottomSheet onBackDropPress={handleFilterPopup} height="80%" defaultOpen closeOnBackdopPress>
+          <Text>abc</Text>
+        </CustomBottomSheet>
+      )}
     </View>
   );
 }
