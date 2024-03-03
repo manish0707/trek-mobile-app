@@ -93,6 +93,15 @@ export default function Naviation() {
             name="Max Credit"
             component={MaxCreditStack}
           />
+           <Tab.Screen
+            options={{
+              ...headerStyles,
+              tabBarLabel: () => null,
+              tabBarIcon: values => <TabIcon {...values} name="account" />,
+            }}
+            name="Profile"
+            component={MaxCreditStack}
+          />
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
