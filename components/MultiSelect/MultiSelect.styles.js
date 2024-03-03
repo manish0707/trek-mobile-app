@@ -15,8 +15,4 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#ecf0f1',
   },
-  text: {
-    fontSize: 14,
-    color: 'black',
-  },
 });

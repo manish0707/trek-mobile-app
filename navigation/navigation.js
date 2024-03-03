@@ -61,8 +61,6 @@ export default function Naviation() {
     return options;
   };
 
-  console.log({user}, 'navigatio');
-
   return (
     <NavigationContainer>
       {user ? (

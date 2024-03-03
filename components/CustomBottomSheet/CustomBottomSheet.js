@@ -2,7 +2,7 @@ import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 
 export default function CustomBottomSheet({
-  getRefValue,
+  getRefValue = null,
   closeOnBackdopPress = true,
   defaultOpen = false,
   enablePanDownToClose = true,

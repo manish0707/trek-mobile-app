@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
@@ -12,12 +13,19 @@ import {getMyExpenses} from '../../utils/expenses';
 import {AuthContext} from '../../context/AuthContext';
 import {useIsFocused} from '@react-navigation/native';
 import {Colors} from '../../styles/Colors';
-import CustomBottomSheet from '../../components/CustomBottomSheet/CustomBottomSheet';
+import {textStyles} from '../../styles/textStyles';
+import dayjs from 'dayjs';
+import {constants} from '../../constants';
+import ExpensesFilter from './ExpensesFilter';
 
 export default function ExpensesList({navigation}) {
   const [expenses, setExpenses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterPopup, setOpenFilterPopup] = useState(false);
+  const [filters, setFilters] = useState({
+    startDate: dayjs().startOf('day').format(constants.DATE_FORMAT),
+    endDate: dayjs().endOf('day').format(constants.DATE_FORMAT),
+  });
 
   const {user} = useContext(AuthContext);
 
@@ -30,6 +38,8 @@ export default function ExpensesList({navigation}) {
   useEffect(() => {
     getMyExpenses(
       user.uid,
+      filters.startDate,
+      filters.endDate,
       data => {
         setExpenses(data);
         setIsLoading(false);
@@ -39,28 +49,42 @@ export default function ExpensesList({navigation}) {
         setIsLoading(false);
       },
     );
-  }, [user.uid, isfocused]);
+  }, [user.uid, isfocused, filters.startDate, filters.endDate]);
 
   const handleFilterPopup = () => {
     setOpenFilterPopup(!openFilterPopup);
   };
 
-  console.log(openFilterPopup);
+  const handlefilterApply = filterValues => {
+    setOpenFilterPopup(false);
+    setFilters(filterValues);
+  };
+
+  const renderItem = ({item}) => {
+    return (
+      <View style={styles.expenseItem}>
+        <View>
+          <Text style={textStyles.large}>{item.name}</Text>
+          <Text style={[textStyles.small, {color: Colors.gray, marginTop: 4}]}>
+            {item.cateogry}
+          </Text>
+        </View>
+        <Text style={[textStyles.large, {fontWeight: 'bold'}]}>
+          ₹{item.amount}
+        </Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.wrapper}>
       <Text
-        style={{
-          textAlign: 'center',
-          marginVertical: 10,
-          fontSize: 24,
-          color: 'black',
-        }}>
+        style={[textStyles.Xlarge, {textAlign: 'center', marginVertical: 10}]}>
         Expenses List
       </Text>
 
       <TouchableOpacity style={styles.filterButton} onPress={handleFilterPopup}>
-        <Text style={{fontSize: 16, color: 'black'}}>Filter</Text>
+        <Text style={textStyles.medium}>Filter</Text>
         <Icon size={18} color="black" name="filter-variant" />
       </TouchableOpacity>
 
@@ -70,35 +94,12 @@ export default function ExpensesList({navigation}) {
         <FlatList
           data={expenses}
           contentContainerStyle={{paddingBottom: 120, marginTop: 10}}
-          renderItem={({item}) => {
-            return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderWidth: 1,
-                  padding: 10,
-                  marginVertical: 10,
-                  // margin: 10,
-                  borderColor: 'lightgray',
-                  borderRadius: 4,
-                }}>
-                <View>
-                  <Text style={{fontSize: 20, color: 'black'}}>
-                    {item.name}
-                  </Text>
-                  <Text style={{fontSize: 14, color: 'gray', marginTop: 4}}>
-                    {item.cateogry}
-                  </Text>
-                </View>
-                <Text
-                  style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
-                  ₹{item.amount}
-                </Text>
-              </View>
-            );
-          }}
+          renderItem={renderItem}
+          ListEmptyComponent={
+            <Text style={[textStyles.medium, {textAlign: 'center'}]}>
+              No Expenses Found!
+            </Text>
+          }
         />
       )}
 
@@ -107,9 +108,10 @@ export default function ExpensesList({navigation}) {
       </TouchableOpacity>
 
       {openFilterPopup && (
-        <CustomBottomSheet onBackDropPress={handleFilterPopup} height="80%" defaultOpen closeOnBackdopPress>
-          <Text>abc</Text>
-        </CustomBottomSheet>
+        <ExpensesFilter
+          onBackDropPress={() => setOpenFilterPopup(false)}
+          getFilterValues={handlefilterApply}
+        />
       )}
     </View>
   );

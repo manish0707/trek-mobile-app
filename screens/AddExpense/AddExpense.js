@@ -82,8 +82,6 @@ export default function AddExpense() {
     }
   };
 
-  console.log(currentDateOptions);
-
   return (
     <CustomBottomSheet
       closeOnBackdopPress={false}
