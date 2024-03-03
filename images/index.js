@@ -9,4 +9,10 @@ export const images = {
   downArrow: require('../images/down-arrow.png'),
   brandLogo: require('../images/brand-logo.svg'),
   brandLogoPng: require('../images/brand-logo.png'),
+  others: require('../images/others.png'),
+  education: require('../images/education.png'),
+  entertainment: require('../images/entertainment.png'),
+  food: require('../images/food.png'),
+  shopping: require('../images/shopping.png'),
+  travel: require('../images/travel.png'),
 };

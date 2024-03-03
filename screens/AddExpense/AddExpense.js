@@ -13,13 +13,9 @@ import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import {saveDataInFirebase} from '../../utils/auth';
 import {expenseCollection} from '../../firebaseConfig';
 import {AuthContext} from '../../context/AuthContext';
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
-import {categories, constants, dateFormat, dateOptions} from '../../constants';
+import {categories, constants, dateOptions} from '../../constants';
 
 export default function AddExpense() {
   let modalRef = useRef(null);

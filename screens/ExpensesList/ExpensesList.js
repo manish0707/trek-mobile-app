@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './ExpensesList.styles';
@@ -15,7 +16,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {Colors} from '../../styles/Colors';
 import {textStyles} from '../../styles/textStyles';
 import dayjs from 'dayjs';
-import {constants} from '../../constants';
+import {categories, constants} from '../../constants';
 import ExpensesFilter from './ExpensesFilter';
 
 export default function ExpensesList({navigation}) {
@@ -61,13 +62,51 @@ export default function ExpensesList({navigation}) {
   };
 
   const renderItem = ({item}) => {
+    console.log(item.cateogry);
+    console.log(categories.find(i => i.name === item.cateogry));
     return (
       <View style={styles.expenseItem}>
-        <View>
-          <Text style={textStyles.large}>{item.name}</Text>
-          <Text style={[textStyles.small, {color: Colors.gray, marginTop: 4}]}>
-            {item.cateogry}
-          </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <View
+            style={{
+              borderWidth: 3,
+              borderColor: Colors.lightGray,
+              padding: 8,
+              borderRadius: 50,
+              marginRight: 10,
+            }}>
+            <Image
+              style={{
+                height: 34,
+                width: 34,
+              }}
+              source={
+                categories.find(i => i.name === item.cateogry)?.image ||
+                undefined
+              }
+            />
+          </View>
+          <View>
+            <Text style={textStyles.large}>{item.name}</Text>
+            <Text
+              style={[textStyles.small, {color: Colors.gray, marginTop: 4}]}>
+              {item.date}
+            </Text>
+            <View style={styles.categoryTag}>
+              <Text
+                style={[
+                  textStyles.small,
+                  {color: Colors.brand, textAlign: 'center'},
+                ]}>
+                {item.cateogry}
+              </Text>
+            </View>
+          </View>
         </View>
         <Text style={[textStyles.large, {fontWeight: 'bold'}]}>
           ₹{item.amount}

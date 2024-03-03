@@ -49,4 +49,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  categoryTag: {
+    borderWidth: 1,
+    borderColor: Colors.brand,
+    borderRadius: 20,
+    marginTop: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+  },
 });
