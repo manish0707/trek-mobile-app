@@ -16,6 +16,7 @@ import {AuthContext} from '../../context/AuthContext';
 import {useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
 import {categories, constants, dateOptions} from '../../constants';
+import {textStyles} from '../../styles/textStyles';
 
 export default function AddExpense() {
   let modalRef = useRef(null);
@@ -27,6 +28,7 @@ export default function AddExpense() {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(null);
   const [cateogry, setCategory] = useState('');
+  const [note, setNote] = useState('');
   const [date, setDate] = useState(dayjs());
   const [currentDateOptions, setCurrentOptions] = useState(dateOptions);
 
@@ -43,6 +45,7 @@ export default function AddExpense() {
         amount: amount,
         cateogry,
         date: date.format(constants.DATE_FORMAT),
+        note,
         userId: user.uid,
       },
 
@@ -78,6 +81,16 @@ export default function AddExpense() {
     }
   };
 
+  const handleAmount = amnt => {
+    let value = amnt;
+
+    if (!value.includes(constants.RUPEES_SYMBOL)) {
+      value = `${constants.RUPEES_SYMBOL}${amnt}`;
+    }
+
+    setAmount(value);
+  };
+
   return (
     <CustomBottomSheet
       closeOnBackdopPress={false}
@@ -96,9 +109,11 @@ export default function AddExpense() {
 
             <Text style={styles.subHeading}>Amount</Text>
             <TextInput
-              onChangeText={amount => setAmount(amount)}
+              onChangeText={handleAmount}
+              placeholder={constants.RUPEES_SYMBOL}
               keyboardType="number-pad"
               style={styles.input}
+              value={amount}
             />
 
             <Text style={styles.subHeading}>Category</Text>
@@ -113,6 +128,14 @@ export default function AddExpense() {
               items={currentDateOptions}
               defaultValue={currentDateOptions[0]}
               onSelect={handleSelectDate}
+            />
+            <Text style={styles.subHeading}>Note</Text>
+            <TextInput
+              onChangeText={text => setNote(text)}
+              style={[styles.input, textStyles.medium]}
+              numberOfLines={5}
+              textAlignVertical="top"
+              multiline
             />
           </View>
         </View>

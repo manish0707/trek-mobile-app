@@ -65,7 +65,7 @@ export default function ExpensesList({navigation}) {
     console.log(item.cateogry);
     console.log(categories.find(i => i.name === item.cateogry));
     return (
-      <View style={styles.expenseItem}>
+      <TouchableOpacity style={styles.expenseItem}>
         <View
           style={{
             flexDirection: 'row',
@@ -109,9 +109,10 @@ export default function ExpensesList({navigation}) {
           </View>
         </View>
         <Text style={[textStyles.large, {fontWeight: 'bold'}]}>
-          ₹{item.amount}
+          {constants.RUPEES_SYMBOL}
+          {item.amount}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 

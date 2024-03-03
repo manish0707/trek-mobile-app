@@ -35,6 +35,7 @@ for (const filter in dateFilters) {
 }
 
 export const constants = {
+  RUPEES_SYMBOL: '₹',
   DATE_FORMAT: 'MMMM D, YYYY',
 };
 
