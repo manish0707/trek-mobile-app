@@ -7,16 +7,6 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 10,
   },
-  expenseItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    padding: 10,
-    marginVertical: 10,
-    borderColor: 'lightgray',
-    borderRadius: 4,
-  },
   addExpenseButton: {
     position: 'absolute',
     bottom: 40,
@@ -48,13 +38,5 @@ export const styles = StyleSheet.create({
   filterPopupWrap: {
     flex: 1,
     padding: 10,
-  },
-  categoryTag: {
-    borderWidth: 1,
-    borderColor: Colors.brand,
-    borderRadius: 20,
-    marginTop: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
   },
 });

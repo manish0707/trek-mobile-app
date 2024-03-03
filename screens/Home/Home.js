@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {
   Alert,
   ImageBackground,
+  ScrollView,
   Text,
   TouchableOpacity,
   View,
@@ -12,6 +13,7 @@ import {textStyles} from '../../styles/textStyles';
 import {Colors} from '../../styles/Colors';
 import {constants} from '../../constants';
 import {images} from '../../images';
+import ExpenseCard from '../../components/ExpenseCard/ExpenseCard';
 
 export default function Home() {
   const {user, setUser} = useContext(AuthContext);
@@ -26,7 +28,7 @@ export default function Home() {
   };
 
   return (
-    <View style={{flex: 1, padding: 10, marginTop: 20}}>
+    <ScrollView style={{flex: 1, paddingHorizontal: 10, marginTop: 20}}>
       <View>
         <Text style={[textStyles.Xlarge]}>Hello, {user.displayName}</Text>
       </View>
@@ -61,6 +63,96 @@ export default function Home() {
         </Text>
         <Text style={{color: 'white'}}>Amount for this month</Text>
       </ImageBackground>
-    </View>
+
+      <View
+        style={{marginTop: 30, borderWidth: 1, padding: 10, borderRadius: 20}}>
+        <Text style={textStyles.Xlarge}>Categories</Text>
+
+        <View style={{marginTop: 10}}>
+          <Text style={textStyles.medium}>Food</Text>
+          <View
+            style={{
+              height: 10,
+              backgroundColor: Colors.brand,
+              borderRadius: 10,
+              marginTop: 4,
+              width: '80%',
+            }}
+          />
+        </View>
+        <View style={{marginTop: 10}}>
+          <Text style={textStyles.medium}>Education</Text>
+          <View
+            style={{
+              height: 10,
+              backgroundColor: Colors.brand,
+              borderRadius: 10,
+              marginTop: 4,
+              width: '60%',
+            }}
+          />
+        </View>
+        <View style={{marginTop: 10}}>
+          <Text style={textStyles.medium}>Entertainment</Text>
+          <View
+            style={{
+              height: 10,
+              backgroundColor: Colors.brand,
+              borderRadius: 10,
+              marginTop: 4,
+              width: '40%',
+            }}
+          />
+        </View>
+        <View style={{marginTop: 10}}>
+          <Text style={textStyles.medium}>Food</Text>
+          <View
+            style={{
+              height: 10,
+              backgroundColor: Colors.brand,
+              borderRadius: 10,
+              marginTop: 4,
+              width: '20%',
+            }}
+          />
+        </View>
+      </View>
+
+      <View style={{marginBottom: 50}}>
+        <Text style={[textStyles.large, {marginTop: 30}]}>Recent Expenses</Text>
+        <View>
+          <ExpenseCard
+            item={{
+              amount: '122',
+              cateogry: 'Entertainment',
+              date: 'March 3, 2024',
+              name: 'with some note',
+              note: 'this is some note',
+              userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
+            }}
+          />
+          <ExpenseCard
+            item={{
+              amount: '122',
+              cateogry: 'Education',
+              date: 'March 3, 2024',
+              name: 'with some note',
+              note: 'this is some note',
+              userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
+            }}
+          />
+              <ExpenseCard
+            item={{
+              amount: '122',
+              cateogry: 'Travel',
+              date: 'March 3, 2024',
+              name: 'with some note',
+              note: 'this is some note',
+              userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
+            }}
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
