@@ -18,4 +18,9 @@ export const textStyles = StyleSheet.create({
     fontSize: 24,
     color: Colors.black,
   },
+  largeHeading: {
+    fontSize: 44,
+    color: 'white',
+    fontWeight: 'bold'
+  },
 });

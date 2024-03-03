@@ -15,4 +15,5 @@ export const images = {
   food: require('../images/food.png'),
   shopping: require('../images/shopping.png'),
   travel: require('../images/travel.png'),
+  background: require('../images/background.png'),
 };
