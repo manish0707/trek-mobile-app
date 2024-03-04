@@ -45,7 +45,9 @@ export default function ExpenseDetails() {
         </Text>
 
         <View style={[commonStyles.categoryTag, {marginTop: 20}]}>
-          <Text>{params?.cateogry}</Text>
+          <Text style={[textStyles.small, {color: Colors.brand}]}>
+            {params?.cateogry}
+          </Text>
         </View>
 
         {params?.note && (
@@ -63,7 +65,7 @@ export default function ExpenseDetails() {
                 padding: 10,
                 minHeight: 80,
               }}>
-              <Text>{params?.note}</Text>
+              <Text style={[textStyles.medium, {color: Colors.gray}]}>{params?.note}</Text>
             </View>
           </>
         )}
