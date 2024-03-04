@@ -4,6 +4,7 @@ import {Colors} from '../styles/Colors';
 import AddExpense from '../screens/AddExpense/AddExpense';
 import ExpensesList from '../screens/ExpensesList/ExpensesList';
 import CalenderScreen from '../screens/CalenderScreen/CalenderScreen';
+import ExpenseDetails from '../screens/ExpenseDetails/ExpenseDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,10 +22,17 @@ export function ExpensesStack() {
       />
       <Stack.Screen
         options={{
-          title: 'Trek',
+          title: 'Add Expense',
         }}
         name="AddExpense"
         component={AddExpense}
+      />
+      <Stack.Screen
+        options={{
+          title: 'Expense Details',
+        }}
+        name="ExpenseDetails"
+        component={ExpenseDetails}
       />
       <Stack.Screen
         options={{

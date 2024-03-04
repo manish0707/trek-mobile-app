@@ -4,12 +4,18 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {textStyles} from '../../styles/textStyles';
 import {categories, constants} from '../../constants';
 import {Colors} from '../../styles/Colors';
+import {useNavigation} from '@react-navigation/native';
+import { commonStyles } from '../../styles/commonstyles';
 
 export default function ExpenseCard({item}: any) {
-    console.log(item);
-    
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('ExpenseDetails', item);
+  };
+
   return (
-    <TouchableOpacity style={styles.expenseItem}>
+    <TouchableOpacity onPress={handlePress} style={styles.expenseItem}>
       <View
         style={{
           flexDirection: 'row',
@@ -39,7 +45,7 @@ export default function ExpenseCard({item}: any) {
           <Text style={[textStyles.small, {color: Colors.gray, marginTop: 4}]}>
             {item.date}
           </Text>
-          <View style={styles.categoryTag}>
+          <View style={commonStyles.categoryTag}>
             <Text
               style={[
                 textStyles.small,

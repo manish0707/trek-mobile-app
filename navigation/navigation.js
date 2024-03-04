@@ -93,7 +93,7 @@ export default function Naviation() {
             name="Max Credit"
             component={MaxCreditStack}
           />
-           <Tab.Screen
+          <Tab.Screen
             options={{
               ...headerStyles,
               tabBarLabel: () => null,

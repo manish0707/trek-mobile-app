@@ -12,12 +12,4 @@ export const styles = StyleSheet.create({
     borderColor: 'lightgray',
     borderRadius: 4,
   },
-  categoryTag: {
-    borderWidth: 1,
-    borderColor: Colors.brand,
-    borderRadius: 20,
-    marginTop: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-  },
 });

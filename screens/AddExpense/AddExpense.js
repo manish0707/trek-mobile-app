@@ -17,6 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
 import {categories, constants, dateOptions} from '../../constants';
 import {textStyles} from '../../styles/textStyles';
+import {Colors} from '../../styles/Colors';
 
 export default function AddExpense() {
   let modalRef = useRef(null);
@@ -92,52 +93,45 @@ export default function AddExpense() {
   };
 
   return (
-    <CustomBottomSheet
-      closeOnBackdopPress={false}
-      defaultOpen
-      enablePanDownToClose={false}
-      getRefValue={value => (modalRef.current = value)}>
+    <View style={{flex: 1, backgroundColor: Colors.white}}>
       <ScrollView keyboardShouldPersistTaps="always">
-        <View style={styles.wrapper}>
-          <View>
-            <Text style={styles.heading}>Add Expense</Text>
-            <Text style={styles.subHeading}>Title</Text>
-            <TextInput
-              onChangeText={text => setTitle(text)}
-              style={styles.input}
-            />
+        <View style={{padding: 14}}>
+          <Text style={styles.subHeading}>Title</Text>
+          <TextInput
+            onChangeText={text => setTitle(text)}
+            style={styles.input}
+          />
 
-            <Text style={styles.subHeading}>Amount</Text>
-            <TextInput
-              onChangeText={handleAmount}
-              placeholder={constants.RUPEES_SYMBOL}
-              keyboardType="number-pad"
-              style={styles.input}
-              value={amount}
-            />
+          <Text style={styles.subHeading}>Amount</Text>
+          <TextInput
+            onChangeText={handleAmount}
+            placeholder={constants.RUPEES_SYMBOL}
+            keyboardType="number-pad"
+            style={styles.input}
+            value={amount}
+          />
 
-            <Text style={styles.subHeading}>Category</Text>
+          <Text style={styles.subHeading}>Category</Text>
 
-            <MultiSelect
-              items={categories}
-              onSelect={item => setCategory(item)}
-            />
+          <MultiSelect
+            items={categories}
+            onSelect={item => setCategory(item)}
+          />
 
-            <Text style={styles.subHeading}>Date</Text>
-            <MultiSelect
-              items={currentDateOptions}
-              defaultValue={currentDateOptions[0]}
-              onSelect={handleSelectDate}
-            />
-            <Text style={styles.subHeading}>Note</Text>
-            <TextInput
-              onChangeText={text => setNote(text)}
-              style={[styles.input, textStyles.medium]}
-              numberOfLines={5}
-              textAlignVertical="top"
-              multiline
-            />
-          </View>
+          <Text style={styles.subHeading}>Date</Text>
+          <MultiSelect
+            items={currentDateOptions}
+            defaultValue={currentDateOptions[0]}
+            onSelect={handleSelectDate}
+          />
+          <Text style={styles.subHeading}>Note</Text>
+          <TextInput
+            onChangeText={text => setNote(text)}
+            style={[styles.input, textStyles.medium]}
+            numberOfLines={5}
+            textAlignVertical="top"
+            multiline
+          />
         </View>
       </ScrollView>
       <TouchableOpacity
@@ -145,6 +139,6 @@ export default function AddExpense() {
         style={[commonStyles.button, styles.btn]}>
         <Text style={commonStyles.buttonText}>Add</Text>
       </TouchableOpacity>
-    </CustomBottomSheet>
+    </View>
   );
 }

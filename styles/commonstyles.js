@@ -14,4 +14,12 @@ export const commonStyles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 1,
   },
+  categoryTag: {
+    borderWidth: 1,
+    borderColor: Colors.brand,
+    borderRadius: 20,
+    marginTop: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+  }
 });

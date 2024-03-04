@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: 'gray',
     fontWeight: '500',
-    marginTop: 20,
+    marginTop: 10,
   },
   input: {
     borderWidth: 1,

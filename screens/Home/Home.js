@@ -65,7 +65,13 @@ export default function Home() {
       </ImageBackground>
 
       <View
-        style={{marginTop: 30, borderWidth: 1, padding: 10, borderRadius: 20}}>
+        style={{
+          marginTop: 30,
+          borderWidth: 1,
+          borderColor: Colors.lightGray,
+          padding: 10,
+          borderRadius: 20,
+        }}>
         <Text style={textStyles.Xlarge}>Categories</Text>
 
         <View style={{marginTop: 10}}>
@@ -141,7 +147,7 @@ export default function Home() {
               userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
             }}
           />
-              <ExpenseCard
+          <ExpenseCard
             item={{
               amount: '122',
               cateogry: 'Travel',

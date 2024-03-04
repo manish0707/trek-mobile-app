@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import CustomBottomSheet from '../../components/CustomBottomSheet/CustomBottomSheet';
 import {styles} from './ExpensesList.styles';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {textStyles} from '../../styles/textStyles';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import DatePicker from '../../components/DatePicker/DatePicker';
@@ -82,11 +82,11 @@ export default function ExpensesFilter({
   return (
     <CustomBottomSheet
       onBackDropPress={onBackDropPress}
-      height="60%"
+      height="70%"
       defaultOpen
       closeOnBackdopPress>
       <View style={styles.filterPopupWrap}>
-        <View style={{flex: 1}}>
+        <ScrollView style={{flex: 1}}>
           <Text style={textStyles.large}>Filter Expenses</Text>
           <MultiSelect
             items={dateFilterNames}
@@ -114,7 +114,7 @@ export default function ExpensesFilter({
               </View>
             </View>
           )}
-        </View>
+        </ScrollView>
         <TouchableOpacity onPress={handleApply} style={[commonStyles.button]}>
           <Text style={commonStyles.buttonText}>Apply</Text>
         </TouchableOpacity>
