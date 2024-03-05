@@ -13,6 +13,7 @@ import {ExpensesStack} from './ExpensesStack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AuthContext} from '../context/AuthContext';
 import Login from '../screens/Login/Login';
+import MyAccount from '../screens/MyAccount/MyAccount';
 
 const Tab = createBottomTabNavigator();
 
@@ -100,7 +101,7 @@ export default function Naviation() {
               tabBarIcon: values => <TabIcon {...values} name="account" />,
             }}
             name="Profile"
-            component={MaxCreditStack}
+            component={MyAccount}
           />
         </Tab.Navigator>
       ) : (
