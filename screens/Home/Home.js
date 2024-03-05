@@ -113,7 +113,9 @@ export default function Home() {
             {constants.RUPEES_SYMBOL}
             {total}
           </Text>
-          <Text style={{color: 'white'}}>Amount for this month</Text>
+          <Text style={{color: 'white'}}>
+            Amount for {filters.filterName.toLowerCase()}
+          </Text>
         </ImageBackground>
 
         <View
