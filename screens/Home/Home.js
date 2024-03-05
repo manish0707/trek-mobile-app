@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Alert,
   ImageBackground,
@@ -14,9 +14,56 @@ import {Colors} from '../../styles/Colors';
 import {constants} from '../../constants';
 import {images} from '../../images';
 import ExpenseCard from '../../components/ExpenseCard/ExpenseCard';
+import {getMyExpenses} from '../../utils/expenses';
+import dayjs from 'dayjs';
 
 export default function Home() {
   const {user, setUser} = useContext(AuthContext);
+  const [total, setTotal] = useState(0);
+  const [topCategories, setTopCategories] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    startDate: dayjs().startOf('day').format(constants.DATE_FORMAT),
+    endDate: dayjs().endOf('day').format(constants.DATE_FORMAT),
+  });
+
+  useEffect(() => {
+    const fetchData = () => {
+      getMyExpenses(
+        user.uid,
+        filters.startDate,
+        filters.endDate,
+        data => {
+          const categoryCount = {};
+
+          data.forEach(item => {
+            const category = item.cateogry;
+            categoryCount[category] = (categoryCount[category] || 0) + 1;
+          });
+
+          const mostUsedCategories = Object.entries(categoryCount)
+            .sort((a, b) => b[1] - a[1])
+            .map(([category]) => ({
+              name: category,
+              percent: (categoryCount[category] / data.length) * 100,
+            }));
+
+          setTotal(
+            data.reduce((accum, current) => (accum += current.amount), 0),
+          );
+          setTopCategories(mostUsedCategories);
+
+          setIsLoading(false);
+        },
+        error => {
+          console.log(error);
+          setIsLoading(false);
+        },
+      );
+    };
+    fetchData();
+  }, [filters.endDate, filters.startDate, user.uid]);
 
   const handleLogout = async () => {
     try {
@@ -59,7 +106,8 @@ export default function Home() {
           </TouchableOpacity>
         </View>
         <Text style={[textStyles.largeHeading, {marginVertical: 10}]}>
-          {constants.RUPEES_SYMBOL}120
+          {constants.RUPEES_SYMBOL}
+          {total}
         </Text>
         <Text style={{color: 'white'}}>Amount for this month</Text>
       </ImageBackground>
@@ -74,57 +122,23 @@ export default function Home() {
         }}>
         <Text style={textStyles.Xlarge}>Categories</Text>
 
-        <View style={{marginTop: 10}}>
-          <Text style={textStyles.medium}>Food</Text>
-          <View
-            style={{
-              height: 10,
-              backgroundColor: Colors.brand,
-              borderRadius: 10,
-              marginTop: 4,
-              width: '80%',
-            }}
-          />
-        </View>
-        <View style={{marginTop: 10}}>
-          <Text style={textStyles.medium}>Education</Text>
-          <View
-            style={{
-              height: 10,
-              backgroundColor: Colors.brand,
-              borderRadius: 10,
-              marginTop: 4,
-              width: '60%',
-            }}
-          />
-        </View>
-        <View style={{marginTop: 10}}>
-          <Text style={textStyles.medium}>Entertainment</Text>
-          <View
-            style={{
-              height: 10,
-              backgroundColor: Colors.brand,
-              borderRadius: 10,
-              marginTop: 4,
-              width: '40%',
-            }}
-          />
-        </View>
-        <View style={{marginTop: 10}}>
-          <Text style={textStyles.medium}>Food</Text>
-          <View
-            style={{
-              height: 10,
-              backgroundColor: Colors.brand,
-              borderRadius: 10,
-              marginTop: 4,
-              width: '20%',
-            }}
-          />
-        </View>
+        {topCategories.map((category, idx) => (
+          <View key={idx} style={{marginTop: 10}}>
+            <Text style={textStyles.medium}>{category.name}</Text>
+            <View
+              style={{
+                height: 10,
+                backgroundColor: Colors.brand,
+                borderRadius: 10,
+                marginTop: 4,
+                width: category.percent,
+              }}
+            />
+          </View>
+        ))}
       </View>
 
-      <View style={{marginBottom: 50}}>
+      {/* <View style={{marginBottom: 50}}>
         <Text style={[textStyles.large, {marginTop: 30}]}>Recent Expenses</Text>
         <View>
           <ExpenseCard
@@ -158,7 +172,7 @@ export default function Home() {
             }}
           />
         </View>
-      </View>
+      </View> */}
     </ScrollView>
   );
 }

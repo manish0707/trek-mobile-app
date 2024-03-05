@@ -1,3 +1,6 @@
+import dayjs from 'dayjs';
+import {constants} from '../constants';
+
 export const formatDate = (input: string) => {
   // Remove non-numeric characters
   const numericOnly = input.replace(/[^\d]/g, '');
@@ -12,4 +15,8 @@ export const formatDate = (input: string) => {
   }
 
   return formatted;
+};
+
+export const getFormattedDate = (date: dayjs.Dayjs) => {
+  return date.format(constants.DATE_FORMAT);
 };

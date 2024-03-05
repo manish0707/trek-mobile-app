@@ -5,13 +5,10 @@ import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {textStyles} from '../../styles/textStyles';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';
 import DatePicker from '../../components/DatePicker/DatePicker';
-import {constants, dateFilterNames, dateFilters} from '../../constants';
+import {dateFilterNames, dateFilters} from '../../constants';
 import {commonStyles} from '../../styles/commonstyles';
 import dayjs from 'dayjs';
-
-const getFormattedDate = (date: dayjs.Dayjs) => {
-  return date.format(constants.DATE_FORMAT);
-};
+import {getFormattedDate} from '../../utils/date';
 
 export default function ExpensesFilter({
   getFilterValues = (_filters: any) => {},
