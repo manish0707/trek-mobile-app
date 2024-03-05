@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = () => {
       getMyExpenses(
-        user.uid,
+        user.uid || user?.user?.email,
         filters.startDate,
         filters.endDate,
         data => {

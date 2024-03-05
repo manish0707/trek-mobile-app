@@ -20,7 +20,7 @@ export const AuthProvider = ({children}: any) => {
     if (!user && currentUser) {
       setUser(currentUser);
     }
-  }, [user]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{user, setUser}}>

@@ -40,13 +40,15 @@ export default function Login() {
         .doc(userInfo.user?.email)
         .get();
 
+      const currentUser = auth().currentUser || {};
+
       if (!userExists._exists) {
         saveDataInFirebase(
           userCollection,
           userInfo.user?.email,
           userInfo.user,
           () => {
-            setUser(userInfo);
+            setUser(currentUser);
             setIsLoading(false);
           },
           error => {
@@ -55,7 +57,7 @@ export default function Login() {
           },
         );
       } else {
-        setUser(userInfo);
+        setUser(currentUser);
         setIsLoading(false);
       }
     } catch (error: any) {
