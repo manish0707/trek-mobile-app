@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
   Alert,
+  Dimensions,
   ImageBackground,
   ScrollView,
   Text,
@@ -16,6 +17,7 @@ import {images} from '../../images';
 import ExpenseCard from '../../components/ExpenseCard/ExpenseCard';
 import {getMyExpenses} from '../../utils/expenses';
 import dayjs from 'dayjs';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function Home() {
   const {user, setUser} = useContext(AuthContext);
@@ -28,10 +30,12 @@ export default function Home() {
     endDate: dayjs().endOf('day').format(constants.DATE_FORMAT),
   });
 
+  const isfocused = useIsFocused();
+
   useEffect(() => {
     const fetchData = () => {
       getMyExpenses(
-        user.uid || user?.user?.email,
+        user.uid,
         filters.startDate,
         filters.endDate,
         data => {
@@ -63,7 +67,7 @@ export default function Home() {
       );
     };
     fetchData();
-  }, [filters.endDate, filters.startDate, user.uid]);
+  }, [filters.endDate, filters.startDate, user.uid, isfocused]);
 
   const handleLogout = async () => {
     try {
@@ -131,7 +135,8 @@ export default function Home() {
                 backgroundColor: Colors.brand,
                 borderRadius: 10,
                 marginTop: 4,
-                width: category.percent,
+                width:
+                  category.percent + (Dimensions.get('screen').width - 100),
               }}
             />
           </View>
