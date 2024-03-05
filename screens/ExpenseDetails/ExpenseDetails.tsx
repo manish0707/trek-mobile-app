@@ -8,6 +8,7 @@ import {textStyles} from '../../styles/textStyles';
 import {commonStyles} from '../../styles/commonstyles';
 import {deleteDocumentFromCollection} from '../../utils/expenses';
 import {expenseCollection} from '../../firebaseConfig';
+import {constants} from '../../constants';
 
 export default function ExpenseDetails() {
   const navigation = useNavigation();
@@ -62,6 +63,7 @@ export default function ExpenseDetails() {
             {params?.name}
           </Text>
           <Text style={[textStyles.Xlarge, {fontWeight: 'bold'}]}>
+            {constants.RUPEES_SYMBOL}
             {params?.amount}
           </Text>
         </View>

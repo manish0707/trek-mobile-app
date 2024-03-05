@@ -46,7 +46,7 @@ export default function AddExpense() {
       uniqueId,
       {
         name: title,
-        amount: amount,
+        amount: Number(amount),
         cateogry,
         date: date.format(constants.DATE_FORMAT),
         note,
