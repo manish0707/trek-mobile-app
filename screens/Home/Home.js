@@ -74,8 +74,6 @@ export default function Home() {
     setFilters(filterValues);
   };
 
-  console.log({filters});
-
   return (
     <>
       <ScrollView style={{flex: 1, paddingHorizontal: 10, marginTop: 20}}>
