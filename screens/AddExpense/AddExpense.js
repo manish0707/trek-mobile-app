@@ -89,9 +89,9 @@ export default function AddExpense() {
   const handleAmount = amnt => {
     let value = amnt;
 
-    if (!value.includes(constants.RUPEES_SYMBOL)) {
-      value = `${constants.RUPEES_SYMBOL}${amnt}`;
-    }
+    // if (!value.includes(constants.RUPEES_SYMBOL)) {
+    //   value = `${constants.RUPEES_SYMBOL}${amnt}`;
+    // }
 
     setAmount(value);
   };
