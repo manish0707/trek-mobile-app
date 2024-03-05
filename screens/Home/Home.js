@@ -118,32 +118,34 @@ export default function Home() {
           </Text>
         </ImageBackground>
 
-        <View
-          style={{
-            marginTop: 30,
-            borderWidth: 1,
-            borderColor: Colors.lightGray,
-            padding: 10,
-            borderRadius: 20,
-          }}>
-          <Text style={textStyles.Xlarge}>Categories</Text>
+        {!!topCategories.length && (
+          <View
+            style={{
+              marginTop: 30,
+              borderWidth: 1,
+              borderColor: Colors.lightGray,
+              padding: 10,
+              borderRadius: 20,
+            }}>
+            <Text style={textStyles.Xlarge}>Categories</Text>
 
-          {topCategories.map((category, idx) => (
-            <View key={idx} style={{marginTop: 10}}>
-              <Text style={textStyles.medium}>{category.name}</Text>
-              <View
-                style={{
-                  height: 10,
-                  backgroundColor: Colors.brand,
-                  borderRadius: 10,
-                  marginTop: 4,
-                  width:
-                    category.percent + (Dimensions.get('screen').width - 100),
-                }}
-              />
-            </View>
-          ))}
-        </View>
+            {topCategories.map((category, idx) => (
+              <View key={idx} style={{marginTop: 10}}>
+                <Text style={textStyles.medium}>{category.name}</Text>
+                <View
+                  style={{
+                    height: 10,
+                    backgroundColor: Colors.brand,
+                    borderRadius: 10,
+                    marginTop: 4,
+                    width:
+                      category.percent + (Dimensions.get('screen').width - 100),
+                  }}
+                />
+              </View>
+            ))}
+          </View>
+        )}
 
         {/* <View style={{marginBottom: 50}}>
         <Text style={[textStyles.large, {marginTop: 30}]}>Recent Expenses</Text>
