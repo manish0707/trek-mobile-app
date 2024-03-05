@@ -1,3 +1,4 @@
+import 'react-native-get-random-values';
 import React from 'react';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Naviation from './navigation/navigation';

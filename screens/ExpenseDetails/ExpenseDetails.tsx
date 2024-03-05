@@ -1,14 +1,40 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './ExpensesDetails.style';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {images} from '../../images';
 import {Colors} from '../../styles/Colors';
 import {textStyles} from '../../styles/textStyles';
 import {commonStyles} from '../../styles/commonstyles';
+import {deleteDocumentFromCollection} from '../../utils/expenses';
+import {expenseCollection} from '../../firebaseConfig';
 
 export default function ExpenseDetails() {
+  const navigation = useNavigation();
   const {params} = useRoute();
+
+  const deleteExpense = async (expenseId: string) => {
+    try {
+      await deleteDocumentFromCollection(expenseCollection, expenseId);
+      navigation.goBack();
+    } catch (e) {
+      Alert.alert('Delete error!', e?.message);
+    }
+  };
+
+  const handleDeletePress = () => {
+    Alert.alert('Delete Expense', 'This expense will be deleted.', [
+      {
+        text: 'Cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => deleteExpense(params?.id),
+      },
+    ]);
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -65,7 +91,9 @@ export default function ExpenseDetails() {
                 padding: 10,
                 minHeight: 80,
               }}>
-              <Text style={[textStyles.medium, {color: Colors.gray}]}>{params?.note}</Text>
+              <Text style={[textStyles.medium, {color: Colors.gray}]}>
+                {params?.note}
+              </Text>
             </View>
           </>
         )}
@@ -73,6 +101,7 @@ export default function ExpenseDetails() {
 
       <View>
         <TouchableOpacity
+          onPress={handleDeletePress}
           style={[commonStyles.button, {backgroundColor: Colors.red}]}>
           <Text
             style={[

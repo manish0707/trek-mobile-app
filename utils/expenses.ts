@@ -31,3 +31,15 @@ export const getMyExpenses = (
       errorCb(error);
     });
 };
+
+// Assuming you have a collection named 'yourCollection' and a document with a specific ID to delete
+export const deleteDocumentFromCollection = async (
+  collectionId: string,
+  documentId: string,
+) => {
+  // Reference to the document to delete
+  const documentRef = firestore().collection(collectionId).doc(documentId);
+
+  // Delete the document
+  await documentRef.delete();
+};

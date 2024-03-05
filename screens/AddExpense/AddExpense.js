@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {v4 as uuidv4} from 'uuid';
 import {styles} from './AddExpense.styles';
 import {commonStyles} from '../../styles/commonstyles';
 import MultiSelect from '../../components/MultiSelect/MultiSelect';
@@ -38,15 +39,18 @@ export default function AddExpense() {
   const handleAdd = () => {
     if (!title || !amount) return;
 
+    const uniqueId = uuidv4();
+
     saveDataInFirebase(
       expenseCollection,
-      title,
+      uniqueId,
       {
         name: title,
         amount: amount,
         cateogry,
         date: date.format(constants.DATE_FORMAT),
         note,
+        id: uniqueId,
         userId: user.uid,
       },
 

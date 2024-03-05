@@ -63,8 +63,7 @@ export default function ExpensesList({navigation}) {
   };
 
   const renderItem = ({item}) => {
-    console.log(item.cateogry);
-    console.log(categories.find(i => i.name === item.cateogry));
+    console.log(item);
     return <ExpenseCard item={item} />;
   };
 
