@@ -17,6 +17,8 @@ export default function ExpensesFilter({
   const [startDate, setStartDate] = useState(getFormattedDate(dayjs()));
   const [endDate, setEndDate] = useState(getFormattedDate(dayjs()));
 
+  const [filterName, setFilterName] = useState('');
+
   const [showCustomFilter, setShowCustomFilter] = useState(false);
 
   const getStartDate = (date: string) =>
@@ -70,10 +72,12 @@ export default function ExpensesFilter({
         console.log('default');
       }
     }
+
+    setFilterName(filter);
   };
 
   const handleApply = () => {
-    getFilterValues({startDate, endDate});
+    getFilterValues({startDate, endDate, filterName});
   };
 
   return (
