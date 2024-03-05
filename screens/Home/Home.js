@@ -95,23 +95,24 @@ export default function Home() {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text style={{color: 'white'}}>Total Expense</Text>
+            <Text style={[textStyles.medium, {color: Colors.white}]}>Total Expense</Text>
             <TouchableOpacity
               onPress={() => setOpenFilterPopup(true)}
               style={{
                 borderWidth: 1,
                 borderColor: 'white',
                 borderRadius: 10,
-                padding: 10,
+                paddingHorizontal: 10,
+                paddingVertical: 4
               }}>
-              <Text style={{color: 'white'}}>{filters.filterName}</Text>
+              <Text style={[textStyles.medium, {color: Colors.white}]}>{filters.filterName}</Text>
             </TouchableOpacity>
           </View>
           <Text style={[textStyles.largeHeading, {marginVertical: 10}]}>
             {constants.RUPEES_SYMBOL}
             {total}
           </Text>
-          <Text style={{color: 'white'}}>
+          <Text style={[textStyles.medium, {color: Colors.white}]}>
             Amount for {filters.filterName.toLowerCase()}
           </Text>
         </ImageBackground>

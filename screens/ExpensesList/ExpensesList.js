@@ -74,7 +74,7 @@ export default function ExpensesList({navigation}) {
       </Text>
 
       <TouchableOpacity style={styles.filterButton} onPress={handleFilterPopup}>
-        <Text style={textStyles.medium}>Filter</Text>
+        <Text style={textStyles.medium}>{filters.filterName || 'Filter'}</Text>
         <Icon size={18} color="black" name="filter-variant" />
       </TouchableOpacity>
 

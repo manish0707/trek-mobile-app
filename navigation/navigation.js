@@ -37,9 +37,9 @@ const TabIcon = ({focused, name}) => {
   return (
     <Icon
       style={focused ? iconStyles : [iconStyles, {borderColor: 'white'}]}
-      size={28}
+      size={focused ? 32 : 28}
       name={name}
-      color={'black'}
+      color={focused ? Colors.brand : Colors.black}
     />
   );
 };
@@ -85,7 +85,7 @@ export default function Naviation() {
             name="Expense Stack"
             component={ExpensesStack}
           />
-          <Tab.Screen
+          {/* <Tab.Screen
             options={{
               ...headerStyles,
               tabBarLabel: () => null,
@@ -93,7 +93,7 @@ export default function Naviation() {
             }}
             name="Max Credit"
             component={MaxCreditStack}
-          />
+          /> */}
           <Tab.Screen
             options={{
               ...headerStyles,

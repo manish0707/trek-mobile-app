@@ -42,7 +42,7 @@ export default function ExpenseCard({item}: any) {
         </View>
         <View>
           <Text style={textStyles.large}>{item.name}</Text>
-          <Text style={[textStyles.small, {color: Colors.gray, marginTop: 4}]}>
+          <Text style={[textStyles.small, {color: Colors.gray}]}>
             {item.date}
           </Text>
           <View style={commonStyles.categoryTag}>
