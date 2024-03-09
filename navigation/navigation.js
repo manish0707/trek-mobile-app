@@ -85,7 +85,7 @@ export default function Naviation() {
             name="Expense Stack"
             component={ExpensesStack}
           />
-          {/* <Tab.Screen
+          <Tab.Screen
             options={{
               ...headerStyles,
               tabBarLabel: () => null,
@@ -93,7 +93,7 @@ export default function Naviation() {
             }}
             name="Max Credit"
             component={MaxCreditStack}
-          /> */}
+          />
           <Tab.Screen
             options={{
               ...headerStyles,

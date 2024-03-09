@@ -4,6 +4,7 @@ export const getMyExpenses = (
   userId: string,
   startDate: any, // Pass your start date here
   endDate: any, // Pass your end date here
+  limit: number | undefined,
   successCb: (data: any) => void,
   errorCb: (error: any) => void,
 ) => {
@@ -16,6 +17,12 @@ export const getMyExpenses = (
     userExpensesQuery = userExpensesQuery
       .where('date', '>=', startDate)
       .where('date', '<=', endDate);
+  }
+
+  if (limit) {
+    userExpensesQuery = userExpensesQuery
+      .orderBy('createdAt', 'desc')
+      .limit(limit);
   }
 
   userExpensesQuery

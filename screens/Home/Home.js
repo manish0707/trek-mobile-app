@@ -16,12 +16,14 @@ import {getMyExpenses} from '../../utils/expenses';
 import dayjs from 'dayjs';
 import {useIsFocused} from '@react-navigation/native';
 import ExpensesFilter from '../ExpensesList/ExpensesFilter';
+import ExpenseCard from '../../components/ExpenseCard/ExpenseCard';
 
 export default function Home() {
   const {user} = useContext(AuthContext);
   const [total, setTotal] = useState(0);
   const [topCategories, setTopCategories] = useState([]);
   const [openFilterPopup, setOpenFilterPopup] = useState(false);
+  const [recentExpenses, setRecentExpenses] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [filters, setFilters] = useState({
@@ -38,6 +40,7 @@ export default function Home() {
         user.uid,
         filters.startDate,
         filters.endDate,
+        undefined,
         data => {
           const categoryCount = {};
 
@@ -69,6 +72,25 @@ export default function Home() {
     fetchData();
   }, [filters.endDate, filters.startDate, user.uid, isfocused]);
 
+  useEffect(() => {
+    const fetchExpenses = () => {
+      getMyExpenses(
+        user.uid,
+        undefined,
+        undefined,
+        5,
+        data => {
+          setRecentExpenses(data);
+        },
+        error => {
+          console.log(error);
+          setIsLoading(false);
+        },
+      );
+    };
+    fetchExpenses();
+  }, [user.uid, isfocused]);
+
   const handlefilterApply = filterValues => {
     setOpenFilterPopup(false);
     setFilters(filterValues);
@@ -95,7 +117,9 @@ export default function Home() {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text style={[textStyles.medium, {color: Colors.white}]}>Total Expense</Text>
+            <Text style={[textStyles.medium, {color: Colors.white}]}>
+              Total Expense
+            </Text>
             <TouchableOpacity
               onPress={() => setOpenFilterPopup(true)}
               style={{
@@ -103,9 +127,11 @@ export default function Home() {
                 borderColor: 'white',
                 borderRadius: 10,
                 paddingHorizontal: 10,
-                paddingVertical: 4
+                paddingVertical: 4,
               }}>
-              <Text style={[textStyles.medium, {color: Colors.white}]}>{filters.filterName}</Text>
+              <Text style={[textStyles.medium, {color: Colors.white}]}>
+                {filters.filterName}
+              </Text>
             </TouchableOpacity>
           </View>
           <Text style={[textStyles.largeHeading, {marginVertical: 10}]}>
@@ -138,7 +164,7 @@ export default function Home() {
                     borderRadius: 10,
                     marginTop: 4,
                     width:
-                      category.percent + (Dimensions.get('screen').width - 100),
+                      category.percent + (Dimensions.get('screen').width - 150),
                   }}
                 />
               </View>
@@ -146,41 +172,16 @@ export default function Home() {
           </View>
         )}
 
-        {/* <View style={{marginBottom: 50}}>
-        <Text style={[textStyles.large, {marginTop: 30}]}>Recent Expenses</Text>
-        <View>
-          <ExpenseCard
-            item={{
-              amount: '122',
-              cateogry: 'Entertainment',
-              date: 'March 3, 2024',
-              name: 'with some note',
-              note: 'this is some note',
-              userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
-            }}
-          />
-          <ExpenseCard
-            item={{
-              amount: '122',
-              cateogry: 'Education',
-              date: 'March 3, 2024',
-              name: 'with some note',
-              note: 'this is some note',
-              userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
-            }}
-          />
-          <ExpenseCard
-            item={{
-              amount: '122',
-              cateogry: 'Travel',
-              date: 'March 3, 2024',
-              name: 'with some note',
-              note: 'this is some note',
-              userId: 'DNzaMcz4Yye3g8xQu0ntlC2gNTU2',
-            }}
-          />
-        </View>
-      </View> */}
+        {recentExpenses.length ? (
+          <View style={{marginBottom: 50}}>
+            <Text style={[textStyles.large, {marginTop: 30}]}>
+              Recent Expenses
+            </Text>
+            {recentExpenses.map(item => (
+              <ExpenseCard key={item.id} item={item} />
+            ))}
+          </View>
+        ) : null}
       </ScrollView>
       {openFilterPopup && (
         <ExpensesFilter

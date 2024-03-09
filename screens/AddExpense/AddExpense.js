@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
 import {v4 as uuidv4} from 'uuid';
 import {styles} from './AddExpense.styles';
 import {commonStyles} from '../../styles/commonstyles';
@@ -51,6 +52,7 @@ export default function AddExpense() {
         date: date.format(constants.DATE_FORMAT),
         note,
         id: uniqueId,
+        createdAt: firestore.FieldValue.serverTimestamp(),
         userId: user.uid,
       },
 

@@ -42,6 +42,7 @@ export default function ExpensesList({navigation}) {
       user.uid,
       filters.startDate,
       filters.endDate,
+      undefined,
       data => {
         setExpenses(data);
         setIsLoading(false);
