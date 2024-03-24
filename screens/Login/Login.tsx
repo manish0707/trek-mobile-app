@@ -13,6 +13,7 @@ import {images} from '../../images';
 import {LoaderContext} from '../../context/LoaderContext';
 import {saveDataInFirebase} from '../../utils/auth';
 import {userCollection} from '../../firebaseConfig';
+import {textStyles} from '../../styles/textStyles';
 
 GoogleSignin.configure({
   webClientId: webClientId,
@@ -78,11 +79,15 @@ export default function Login() {
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Image
         source={images.brandLogoPng}
-        style={{borderWidth: 1, height: 250, width: 250}}
+        style={{borderWidth: 1, height: 250, width: 250, marginBottom: 20}}
       />
 
-      <Text style={{fontSize: 30, fontWeight: '600', marginTop: 20}}>Trek</Text>
-      <Text style={{fontSize: 20, marginBottom: 20, marginTop: 10}}>
+      <Text style={[textStyles.Xlarge, {paddingTop: 10}]}>TREK</Text>
+      <Text
+        style={[
+          textStyles.large,
+          {marginVertical: 10, marginBottom: 20, fontStyle: 'italic'},
+        ]}>
         Financial Trekking
       </Text>
       <GoogleSigninButton
