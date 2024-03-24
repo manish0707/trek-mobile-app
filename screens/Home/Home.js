@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Dimensions,
   ImageBackground,
   ScrollView,
@@ -25,7 +26,7 @@ export default function Home() {
   const [openFilterPopup, setOpenFilterPopup] = useState(false);
   const [recentExpenses, setRecentExpenses] = useState([]);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({
     startDate: dayjs().startOf('day').format(constants.DATE_FORMAT),
     endDate: dayjs().endOf('day').format(constants.DATE_FORMAT),
@@ -36,6 +37,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = () => {
+      setIsLoading(true);
       getMyExpenses(
         user.uid,
         filters.startDate,
@@ -95,6 +97,17 @@ export default function Home() {
     setOpenFilterPopup(false);
     setFilters(filterValues);
   };
+
+  if (isLoading) {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ActivityIndicator color={Colors.brand} size={30} />
+        <Text style={[textStyles.small, {marginTop: 10}]}>
+          Fetching data...
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <>
@@ -178,7 +191,7 @@ export default function Home() {
               Recent Expenses
             </Text>
             {recentExpenses.map(item => (
-              <ExpenseCard key={item.id} item={item} />
+              <ExpenseCard disabled key={item.id} item={item} />
             ))}
           </View>
         ) : null}

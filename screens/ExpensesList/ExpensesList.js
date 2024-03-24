@@ -38,6 +38,7 @@ export default function ExpensesList({navigation}) {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     getMyExpenses(
       user.uid,
       filters.startDate,

@@ -5,9 +5,9 @@ import {textStyles} from '../../styles/textStyles';
 import {categories, constants} from '../../constants';
 import {Colors} from '../../styles/Colors';
 import {useNavigation} from '@react-navigation/native';
-import { commonStyles } from '../../styles/commonstyles';
+import {commonStyles} from '../../styles/commonstyles';
 
-export default function ExpenseCard({item}: any) {
+export default function ExpenseCard({item, disabled = false}: any) {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -15,7 +15,10 @@ export default function ExpenseCard({item}: any) {
   };
 
   return (
-    <TouchableOpacity onPress={handlePress} style={styles.expenseItem}>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={handlePress}
+      style={styles.expenseItem}>
       <View
         style={{
           flexDirection: 'row',

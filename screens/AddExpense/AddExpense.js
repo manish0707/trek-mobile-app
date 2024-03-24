@@ -20,6 +20,7 @@ import dayjs from 'dayjs';
 import {categories, constants, dateOptions} from '../../constants';
 import {textStyles} from '../../styles/textStyles';
 import {Colors} from '../../styles/Colors';
+import Button from '../../components/Button/Button';
 
 export default function AddExpense() {
   let modalRef = useRef(null);
@@ -33,6 +34,7 @@ export default function AddExpense() {
   const [cateogry, setCategory] = useState('');
   const [note, setNote] = useState('');
   const [date, setDate] = useState(dayjs());
+  const [isLoading, setIsLoading] = useState(false);
   const [currentDateOptions, setCurrentOptions] = useState(dateOptions);
 
   useEffect(() => {}, []);
@@ -41,6 +43,8 @@ export default function AddExpense() {
     if (!title || !amount) return;
 
     const uniqueId = uuidv4();
+
+    setIsLoading(true);
 
     saveDataInFirebase(
       expenseCollection,
@@ -57,9 +61,11 @@ export default function AddExpense() {
       },
 
       () => {
+        setIsLoading(false);
         navigation.goBack();
       },
       e => {
+        setIsLoading(false);
         console.log('errr adding expe', e);
       },
     );
@@ -140,11 +146,12 @@ export default function AddExpense() {
           />
         </View>
       </ScrollView>
-      <TouchableOpacity
+      <Button
+        isLoading={isLoading}
+        title="Adddd"
         onPress={handleAdd}
-        style={[commonStyles.button, styles.btn]}>
-        <Text style={commonStyles.buttonText}>Add</Text>
-      </TouchableOpacity>
+        style={styles.btn}
+      />
     </View>
   );
 }
